@@ -1,10 +1,10 @@
 <p align="center" class="logo-section">
-<img src="#IMAGE_HERE" height="80" width="80"/>
+<img src="https://i.ibb.co/gvD8wP1/Vulcan-Salute-Medium-Skin-Tone.png" height="80" width="80"/>
 </br>
-<img src="https://halitsever-api.vercel.app/api/repo-title?title=repo_name">
+<img src="https://halitsever-api.vercel.app/api/repo-title?title=Log%20Emoji">
 
 <p align="center">
-✋ Coming soon...<br>
+🪵 Very small logging package with emojis for node.js <br>
 <br/>
 <br/>
 <img src="https://img.shields.io/github/sponsors/halitsever"/> 
@@ -15,27 +15,32 @@
   </p>
 </p>
 
-
-
 <a align="center">
 <img src="https://halitsever-api.vercel.app/api/details"/>
 </a>
 
-- 🧑‍💻 [**TODO**](#) - update docs
-
-
-
-
+- 🧑‍💻 [**TODO**](#) - Add timestamp
 
 <a align="center" >
 <img src="https://halitsever-api.vercel.app/api/installation"/>
 </a>
 
+```bash
+npm install log-emoji --save
+```
 
+Usage:
 
-Todo: update docs
+```javascript
+const logger = require("log-emoji");
 
-
+logger.success("You did it!");
+// Output:  ✅ You did it
+logger.fail("You're suck!");
+// Output:  📛 You're suck
+logger.error("Oh crap!");
+// Output: 🚨 Oh crap!
+```
 
 <a align="center" href="https://github.com/halitsever/repo_name/issues">
 <img src="https://halitsever-api.vercel.app/api/issue"/>
@@ -45,11 +50,10 @@ Todo: update docs
 <img src="https://halitsever-api.vercel.app/api/sponsor"/>
 </a>
 
-
 <a align="center">
 <img src="https://halitsever-api.vercel.app/api/license"/>
 </a>
 
-<p>
-  ...
+<p align="center">
+  MIT LICENSE | <a href="https://github.com/halitsever">Halit Sever</a>
 </p>
