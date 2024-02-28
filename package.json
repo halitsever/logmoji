@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "description": "🪵 Very small logging package with emojis for node.js",
   "main": "src/index.js",
-  "types": "./src/index.d.ts",
+  "types": "src/index.d.ts",
   "scripts": {
     "test": "jest",
     "docs:dev": "vitepress dev docs",

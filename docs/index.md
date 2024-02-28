@@ -18,13 +18,13 @@ hero:
     alt: Logmoji Icon
 
 features:
-  - icon: ✅
   - title: Small
+    icon: ✅
     details: Very small logging package with emojis
-  - icon: 💨
   - title: Fun
+    icon: 💨
     details: Makes reading debug logs more fun
-  - icon: 🆙
   - title: Painless
+    icon: 🆙
     details: Reading debug logs less painless with logmoji
 ---
