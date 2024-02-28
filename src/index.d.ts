@@ -1,5 +1,5 @@
 declare module 'index' {
-    import ConfigClass = require('config.class');
+    import ConfigClass = require('ConfigClass');
 
     interface Logger {
         success: (...args: any[]) => void;
