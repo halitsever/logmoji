@@ -5,7 +5,7 @@ export default defineConfig({
   title: "Logmoji",
   description: "🪵 Very small logging package with emojis for node.js",
   head: [['link', { rel: 'icon', href: '/favicon.png' }]],
-
+  base: '/logmoji/',
   themeConfig: {
     footer: {
       message: 'Released under the MIT License.',
