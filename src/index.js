@@ -1,41 +1,41 @@
-const main = (params) => {
-  const ConfigClass = require("./config.class");
-  const getDateLog = require("./utils/get-date-log");
+const ConfigClass = require("./config.class");
+const getDateLog = require("./utils/get-date-log");
+
+const createLogger = (params) => {
   const configInstance = new ConfigClass({ ...(params || {}) });
   const config = configInstance.getConfig();
 
-  const success = (...args) => {
-    console.info(`${config?.timestamp ? getDateLog() : ""} ✅ Success: `, ...args);
-  };
+  const log = (level, ...args) => {
+    const logSymbols = {
+      success: "✅",
+      fail: "📛",
+      warn: "🟠",
+      error: "🚨",
+      info: "ℹ️",
+      log: "📄",
+    };
 
-  const fail = (...args) => {
-    console.warn(`${config?.timestamp ? getDateLog() : ""} 📛 Fail: `, ...args);
-  };
+    const logFunction = {
+      success: console.info,
+      fail: console.warn,
+      warn: console.warn,
+      error: console.error,
+      info: console.info,
+      log: console.log,
+    };
 
-  const warn = (...args) => {
-    console.warn(`${config?.timestamp ? getDateLog() : ""} 🟠 Warning: `, ...args);
-  };
-
-  const error = (...args) => {
-    console.error(`${config?.timestamp ? getDateLog() : ""} 🚨 Error: `, ...args);
-  };
-
-  const info = (...args) => {
-    console.info(`${config?.timestamp ? getDateLog() : ""} ℹ️ Info: `, ...args);
-  };
-
-  const log = (...args) => {
-    console.log(`${config?.timestamp ? getDateLog() : ""} 📄 Log: `, ...args);
+    const timestamp = config?.timestamp ? getDateLog() : "";
+    logFunction[level](`${timestamp} ${logSymbols[level]} ${level.charAt(0).toUpperCase() + level.slice(1)}: `, ...args);
   };
 
   return {
-    success,
-    fail,
-    error,
-    info,
-    warn,
-    log,
+    success: (...args) => log("success", ...args),
+    fail: (...args) => log("fail", ...args),
+    error: (...args) => log("error", ...args),
+    info: (...args) => log("info", ...args),
+    warn: (...args) => log("warn", ...args),
+    log: (...args) => log("log", ...args),
   };
 };
 
-module.exports = main;
+module.exports = createLogger;
