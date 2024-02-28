@@ -1,15 +1,16 @@
 {
-  "name": "log-emoji",
+  "name": "logmoji",
   "version": "1.0.0",
   "description": "🪵 Very small logging package with emojis for node.js",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "vitepress": "^1.0.0-rc.44"
   }
 }
