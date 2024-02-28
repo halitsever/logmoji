@@ -1,7 +1,7 @@
 <p align="center" class="logo-section">
 <img src="https://i.ibb.co/gvD8wP1/Vulcan-Salute-Medium-Skin-Tone.png" height="80" width="80"/>
 </br>
-<img src="https://halitsever-api.vercel.app/api/repo-title?title=LogMoji">
+<img src="https://halitsever-api.vercel.app/api/repo-title?title=Logmoji">
 
 <p align="center">
 🪵 Very small logging package with emojis for node.js <br>

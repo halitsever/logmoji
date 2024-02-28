@@ -13,7 +13,7 @@ const main = (params) => {
   };
 
   const warn = (...args) => {
-    console.warn(`${config?.timestamp ? getDateLog() : ""} ⚠️ Warning: `, ...args);
+    console.warn(`${config?.timestamp ? getDateLog() : ""} 🟠 Warning: `, ...args);
   };
 
   const error = (...args) => {
@@ -21,11 +21,11 @@ const main = (params) => {
   };
 
   const info = (...args) => {
-    console.error(`${config?.timestamp ? getDateLog() : ""} ℹ️ Info: `, ...args);
+    console.info(`${config?.timestamp ? getDateLog() : ""} ℹ️ Info: `, ...args);
   };
 
   const log = (...args) => {
-    info(...args);
+    console.log(`${config?.timestamp ? getDateLog() : ""} 📄 Log: `, ...args);
   };
 
   return {
