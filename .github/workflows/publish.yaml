@@ -16,6 +16,6 @@ jobs:
       - name: Test package 🧪
         run: npm run test
       - name: Publish package on NPM 📦
-        run: npm publish
+        run: npm i && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
