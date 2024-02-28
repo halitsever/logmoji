@@ -1,4 +1,6 @@
 declare module 'index' {
+    import ConfigClass = require('config.class');
+
     interface Logger {
         success: (...args: any[]) => void;
         fail: (...args: any[]) => void;
@@ -10,13 +12,7 @@ declare module 'index' {
 
     type LogLevel = 'success' | 'fail' | 'error' | 'info' | 'warn' | 'log';
 
-    interface LoggerOptions {
-        // Define your configuration options here if any
-        // For example:
-        // timestamp?: boolean;
-    }
-
-    function createLogger(params?: LoggerOptions): Logger;
+    function createLogger(params?: ConfigClass.ConfigOptions): Logger;
 
     export = createLogger;
 }
