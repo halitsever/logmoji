@@ -36,11 +36,7 @@ Usage:
 const logger = require("logmoji")({ timestamp: false });
 
 logger.success("You did it!");
-// Output:  ✅ You did it
-logger.fail("You're suck!");
-// Output:  📛 You're suck
-logger.error("Oh crap!");
-// Output: 🚨 Oh crap!
+// Success: ✅ You did it
 ```
 
 <a align="center" href="https://github.com/halitsever/logmoji/issues">

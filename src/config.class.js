@@ -2,6 +2,7 @@ class ConfigClass {
   constructor({ timestamp }) {
     this.config = {
       timestamp: timestamp || false,
+      isLoggingDisabled: process.env.LOG || false,
     };
   }
 

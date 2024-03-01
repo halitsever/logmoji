@@ -25,6 +25,9 @@ const createLogger = (params) => {
     };
 
     const timestamp = config?.timestamp ? getDateLog() : "";
+    const isLoggingDisabled = config?.isLoggingDisabled;
+
+    if (isLoggingDisabled) return;
     logFunction[level](`${timestamp} ${logSymbols[level]} ${level.charAt(0).toUpperCase() + level.slice(1)}: `, ...args);
   };
 
