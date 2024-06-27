@@ -5,16 +5,9 @@ const createLogger = (params) => {
   const configInstance = new ConfigClass({ ...(params || {}) });
   const config = configInstance.getConfig();
 
-  const log = (level, ...args) => {
-    const logSymbols = {
-      success: "✅",
-      fail: "📛",
-      warn: "🟠",
-      error: "🚨",
-      info: "ℹ️",
-      log: "📄",
-    };
+  const logSymbols = config.logSymbols;
 
+  const log = (level, ...args) => {
     const logFunction = {
       success: console.info,
       fail: console.warn,
@@ -28,7 +21,7 @@ const createLogger = (params) => {
     const isLoggingDisabled = config?.isLoggingDisabled;
 
     if (isLoggingDisabled) return;
-    logFunction[level](`${timestamp} ${logSymbols[level]} ${level.charAt(0).toUpperCase() + level.slice(1)}: `, ...args);
+    logFunction[level](`${timestamp} ${logSymbols[level]}${config?.disablePrefixText ? "" : level.charAt(0).toUpperCase() + level.slice(1) + ": "}`, ...args);
   };
 
   return {

@@ -1,5 +1,5 @@
 const getDateLog = () => {
-  return `[${Date.now()}]`;
+  return `[${new Date().toISOString()}]`;
 };
 
 module.exports = getDateLog;
