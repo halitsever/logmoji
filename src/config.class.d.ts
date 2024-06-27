@@ -1,3 +1,3 @@
 export interface ConfigOptions {
-    timestamp: false | true
+    timestamp?: false | true
 }

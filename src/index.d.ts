@@ -11,5 +11,5 @@ export interface Logger {
 
 type LogLevel = 'success' | 'fail' | 'error' | 'info' | 'warn' | 'log';
 
-export declare function createLogger(params?: ConfigOptions): Logger;
+export default function createLogger(params?: ConfigOptions): Logger;
 
