@@ -2,9 +2,9 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Logmoji",
+  title: "Logmoji | Documentation",
   description: "🪵 Very small logging package with emojis for node.js",
-  head: [['link', { rel: 'icon', href: '/favicon.png' }]],
+  head: [['link', { rel: 'icon', href: '/logmoji/favicon.ico' }]],
   base: '/logmoji/',
   themeConfig: {
     footer: {
