@@ -33,9 +33,9 @@ import {
   version,
   watch,
   watchEffect
-} from "./chunk-CKQ4TNQ3.js";
+} from "./chunk-NRR3UUIY.js";
 
-// node_modules/@vueuse/shared/node_modules/vue-demi/lib/index.mjs
+// node_modules/vitepress/lib/vue-demi.mjs
 var isVue2 = false;
 var isVue3 = true;
 function set(target, key, val) {
@@ -46,6 +46,13 @@ function set(target, key, val) {
   }
   target[key] = val;
   return val;
+}
+function del(target, key) {
+  if (Array.isArray(target)) {
+    target.splice(key, 1);
+    return;
+  }
+  delete target[key];
 }
 
 // node_modules/@vueuse/shared/index.mjs
@@ -71,7 +78,7 @@ function computedWithControl(source, fn) {
   };
   watch(source, update, { flush: "sync" });
   const get2 = typeof fn === "function" ? fn : fn.get;
-  const set4 = typeof fn === "function" ? void 0 : fn.set;
+  const set3 = typeof fn === "function" ? void 0 : fn.set;
   const result = customRef((_track, _trigger) => {
     track = _track;
     trigger = _trigger;
@@ -85,7 +92,7 @@ function computedWithControl(source, fn) {
         return v;
       },
       set(v2) {
-        set4 == null ? void 0 : set4(v2);
+        set3 == null ? void 0 : set3(v2);
       }
     };
   });
@@ -158,12 +165,13 @@ var injectLocal = (...args) => {
 };
 function createInjectionState(composable, options) {
   const key = (options == null ? void 0 : options.injectionKey) || Symbol(composable.name || "InjectionState");
+  const defaultValue = options == null ? void 0 : options.defaultValue;
   const useProvidingState = (...args) => {
     const state = composable(...args);
     provideLocal(key, state);
     return state;
   };
-  const useInjectedState = () => injectLocal(key);
+  const useInjectedState = () => injectLocal(key, defaultValue);
   return [useProvidingState, useInjectedState];
 }
 function createSharedComposable(composable) {
@@ -337,7 +345,7 @@ var hasOwn = (val, key) => Object.prototype.hasOwnProperty.call(val, key);
 var isIOS = getIsIOS();
 function getIsIOS() {
   var _a, _b;
-  return isClient && ((_a = window == null ? void 0 : window.navigator) == null ? void 0 : _a.userAgent) && (/iP(ad|hone|od)/.test(window.navigator.userAgent) || ((_b = window == null ? void 0 : window.navigator) == null ? void 0 : _b.maxTouchPoints) > 2 && /iPad|Macintosh/.test(window == null ? void 0 : window.navigator.userAgent));
+  return isClient && ((_a = window == null ? void 0 : window.navigator) == null ? void 0 : _a.userAgent) && (/iP(?:ad|hone|od)/.test(window.navigator.userAgent) || ((_b = window == null ? void 0 : window.navigator) == null ? void 0 : _b.maxTouchPoints) > 2 && /iPad|Macintosh/.test(window == null ? void 0 : window.navigator.userAgent));
 }
 function createFilterWrapper(filter, fn) {
   function wrapper(...args) {
@@ -513,7 +521,7 @@ function increaseWithUnit(target, delta) {
   var _a;
   if (typeof target === "number")
     return target + delta;
-  const value = ((_a = target.match(/^-?[0-9]+\.?[0-9]*/)) == null ? void 0 : _a[0]) || "";
+  const value = ((_a = target.match(/^-?\d+\.?\d*/)) == null ? void 0 : _a[0]) || "";
   const unit = target.slice(value.length);
   const result = Number.parseFloat(value) + delta;
   if (Number.isNaN(result))
@@ -630,7 +638,7 @@ function refWithControl(initial, options = {}) {
         return get2();
       },
       set(v) {
-        set4(v);
+        set3(v);
       }
     };
   });
@@ -639,7 +647,7 @@ function refWithControl(initial, options = {}) {
       track();
     return source;
   }
-  function set4(value, triggering = true) {
+  function set3(value, triggering = true) {
     var _a, _b;
     if (value === source)
       return;
@@ -652,14 +660,14 @@ function refWithControl(initial, options = {}) {
       trigger();
   }
   const untrackedGet = () => get2(false);
-  const silentSet = (v) => set4(v, false);
+  const silentSet = (v) => set3(v, false);
   const peek = () => get2(false);
-  const lay = (v) => set4(v, false);
+  const lay = (v) => set3(v, false);
   return extendRef(
     ref2,
     {
       get: get2,
-      set: set4,
+      set: set3,
       untrackedGet,
       silentSet,
       peek,
@@ -1049,15 +1057,15 @@ function useCounter(initialValue = 0, options = {}) {
   const inc = (delta = 1) => count.value = Math.max(Math.min(max, count.value + delta), min);
   const dec = (delta = 1) => count.value = Math.min(Math.max(min, count.value - delta), max);
   const get2 = () => count.value;
-  const set4 = (val) => count.value = Math.max(min, Math.min(max, val));
+  const set3 = (val) => count.value = Math.max(min, Math.min(max, val));
   const reset = (val = _initialValue) => {
     _initialValue = val;
-    return set4(val);
+    return set3(val);
   };
-  return { count, inc, dec, get: get2, set: set4, reset };
+  return { count, inc, dec, get: get2, set: set3, reset };
 }
-var REGEX_PARSE = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/;
-var REGEX_FORMAT = /[YMDHhms]o|\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a{1,2}|A{1,2}|m{1,2}|s{1,2}|Z{1,2}|SSS/g;
+var REGEX_PARSE = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[T\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/i;
+var REGEX_FORMAT = /[YMDHhms]o|\[([^\]]+)\]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a{1,2}|A{1,2}|m{1,2}|s{1,2}|Z{1,2}|SSS/g;
 function defaultMeridiem(hours, minutes, isLowercase, hasPeriod) {
   let m = hours < 12 ? "AM" : "PM";
   if (hasPeriod)
@@ -1544,26 +1552,6 @@ function whenever(source, cb, options) {
   return stop;
 }
 
-// node_modules/@vueuse/core/node_modules/vue-demi/lib/index.mjs
-var isVue22 = false;
-var isVue32 = true;
-function set3(target, key, val) {
-  if (Array.isArray(target)) {
-    target.length = Math.max(target.length, key);
-    target.splice(key, 1, val);
-    return val;
-  }
-  target[key] = val;
-  return val;
-}
-function del(target, key) {
-  if (Array.isArray(target)) {
-    target.splice(key, 1);
-    return;
-  }
-  delete target[key];
-}
-
 // node_modules/@vueuse/core/index.mjs
 function computedAsync(evaluationCallback, initialState, optionsOrRef) {
   let options;
@@ -1638,7 +1626,7 @@ function computedInject(key, options, defaultSource, treatDefaultAsFactory) {
   }
 }
 function createReusableTemplate(options = {}) {
-  if (!isVue32 && !version.startsWith("2.7.")) {
+  if (!isVue3 && !version.startsWith("2.7.")) {
     if (true)
       throw new Error("[VueUse] createReusableTemplate only works in Vue 2.7 or above.");
     return;
@@ -1678,7 +1666,7 @@ function keysToCamelKebabCase(obj) {
   return newObj;
 }
 function createTemplatePromise(options = {}) {
-  if (!isVue32) {
+  if (!isVue3) {
     if (true)
       throw new Error("[VueUse] createTemplatePromise only works in Vue 3 or above.");
     return;
@@ -1834,8 +1822,9 @@ function onClickOutside(target, handler, options = {}) {
       setTimeout(() => {
         var _a;
         const el = unrefElement(target);
-        if (((_a = window2.document.activeElement) == null ? void 0 : _a.tagName) === "IFRAME" && !(el == null ? void 0 : el.contains(window2.document.activeElement)))
+        if (((_a = window2.document.activeElement) == null ? void 0 : _a.tagName) === "IFRAME" && !(el == null ? void 0 : el.contains(window2.document.activeElement))) {
           handler(event);
+        }
       }, 0);
     })
   ].filter(Boolean);
@@ -1903,12 +1892,33 @@ function onLongPress(target, handler, options) {
   const elementRef = computed(() => unrefElement(target));
   let timeout;
   let posStart;
+  let startTimestamp;
+  let hasLongPressed = false;
   function clear() {
     if (timeout) {
       clearTimeout(timeout);
       timeout = void 0;
     }
     posStart = void 0;
+    startTimestamp = void 0;
+    hasLongPressed = false;
+  }
+  function onRelease(ev) {
+    var _a2, _b2, _c;
+    const [_startTimestamp, _posStart, _hasLongPressed] = [startTimestamp, posStart, hasLongPressed];
+    clear();
+    if (!(options == null ? void 0 : options.onMouseUp) || !_posStart || !_startTimestamp)
+      return;
+    if (((_a2 = options == null ? void 0 : options.modifiers) == null ? void 0 : _a2.self) && ev.target !== elementRef.value)
+      return;
+    if ((_b2 = options == null ? void 0 : options.modifiers) == null ? void 0 : _b2.prevent)
+      ev.preventDefault();
+    if ((_c = options == null ? void 0 : options.modifiers) == null ? void 0 : _c.stop)
+      ev.stopPropagation();
+    const dx = ev.x - _posStart.x;
+    const dy = ev.y - _posStart.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    options.onMouseUp(ev.timeStamp - _startTimestamp, distance, _hasLongPressed);
   }
   function onDown(ev) {
     var _a2, _b2, _c, _d;
@@ -1923,8 +1933,12 @@ function onLongPress(target, handler, options) {
       x: ev.x,
       y: ev.y
     };
+    startTimestamp = ev.timeStamp;
     timeout = setTimeout(
-      () => handler(ev),
+      () => {
+        hasLongPressed = true;
+        handler(ev);
+      },
       (_d = options == null ? void 0 : options.delay) != null ? _d : DEFAULT_DELAY
     );
   }
@@ -1951,7 +1965,7 @@ function onLongPress(target, handler, options) {
   const cleanup = [
     useEventListener(elementRef, "pointerdown", onDown, listenerOptions),
     useEventListener(elementRef, "pointermove", onMove, listenerOptions),
-    useEventListener(elementRef, ["pointerup", "pointerleave"], clear, listenerOptions)
+    useEventListener(elementRef, ["pointerup", "pointerleave"], onRelease, listenerOptions)
   ];
   const stop = () => cleanup.forEach((fn) => fn());
   return stop;
@@ -2013,11 +2027,69 @@ function templateRef(key, initialValue = null) {
   onUpdated(_trigger);
   return element;
 }
+function useMounted() {
+  const isMounted = ref(false);
+  const instance = getCurrentInstance();
+  if (instance) {
+    onMounted(() => {
+      isMounted.value = true;
+    }, isVue2 ? void 0 : instance);
+  }
+  return isMounted;
+}
+function useSupported(callback) {
+  const isMounted = useMounted();
+  return computed(() => {
+    isMounted.value;
+    return Boolean(callback());
+  });
+}
+function useMutationObserver(target, callback, options = {}) {
+  const { window: window2 = defaultWindow, ...mutationOptions } = options;
+  let observer;
+  const isSupported = useSupported(() => window2 && "MutationObserver" in window2);
+  const cleanup = () => {
+    if (observer) {
+      observer.disconnect();
+      observer = void 0;
+    }
+  };
+  const targets = computed(() => {
+    const value = toValue(target);
+    const items = (Array.isArray(value) ? value : [value]).map(unrefElement).filter(notNullish);
+    return new Set(items);
+  });
+  const stopWatch = watch(
+    () => targets.value,
+    (targets2) => {
+      cleanup();
+      if (isSupported.value && targets2.size) {
+        observer = new MutationObserver(callback);
+        targets2.forEach((el) => observer.observe(el, mutationOptions));
+      }
+    },
+    { immediate: true, flush: "post" }
+  );
+  const takeRecords = () => {
+    return observer == null ? void 0 : observer.takeRecords();
+  };
+  const stop = () => {
+    cleanup();
+    stopWatch();
+  };
+  tryOnScopeDispose(stop);
+  return {
+    isSupported,
+    stop,
+    takeRecords
+  };
+}
 function useActiveElement(options = {}) {
   var _a;
   const {
     window: window2 = defaultWindow,
-    deep = true
+    deep = true,
+    triggerOnRemoval = false
   } = options;
   const document2 = (_a = options.document) != null ? _a : window2 == null ? void 0 : window2.document;
   const getDeepActiveElement = () => {
@@ -2041,25 +2113,19 @@ function useActiveElement(options = {}) {
     }, true);
     useEventListener(window2, "focus", trigger, true);
   }
+  if (triggerOnRemoval) {
+    useMutationObserver(document2, (mutations) => {
+      mutations.filter((m) => m.removedNodes.length).map((n) => Array.from(n.removedNodes)).flat().forEach((node) => {
+        if (node === activeElement.value)
+          trigger();
+      });
+    }, {
+      childList: true,
+      subtree: true
+    });
+  }
   trigger();
   return activeElement;
-}
-function useMounted() {
-  const isMounted = ref(false);
-  const instance = getCurrentInstance();
-  if (instance) {
-    onMounted(() => {
-      isMounted.value = true;
-    }, isVue22 ? null : instance);
-  }
-  return isMounted;
-}
-function useSupported(callback) {
-  const isMounted = useMounted();
-  return computed(() => {
-    isMounted.value;
-    return Boolean(callback());
-  });
 }
 function useRafFn(fn, options = {}) {
   const {
@@ -2259,8 +2325,6 @@ function useAnimate(target, keyframes, options) {
       return;
     if (!animate.value)
       animate.value = el.animate(toValue(keyframes), animateOptions);
-    if (commitStyles)
-      animate.value.commitStyles();
     if (persist)
       animate.value.persist();
     if (_playbackRate !== 1)
@@ -2272,6 +2336,11 @@ function useAnimate(target, keyframes, options) {
     onReady == null ? void 0 : onReady(animate.value);
   }
   useEventListener(animate, ["cancel", "finish", "remove"], syncPause);
+  useEventListener(animate, "finish", () => {
+    var _a;
+    if (commitStyles)
+      (_a = animate.value) == null ? void 0 : _a.commitStyles();
+  });
   const { resume: resumeRef, pause: pauseRef } = useRafFn(() => {
     if (!animate.value)
       return;
@@ -3355,46 +3424,6 @@ function useConfirmDialog(revealed = ref(false)) {
     onCancel: cancelHook.on
   };
 }
-function useMutationObserver(target, callback, options = {}) {
-  const { window: window2 = defaultWindow, ...mutationOptions } = options;
-  let observer;
-  const isSupported = useSupported(() => window2 && "MutationObserver" in window2);
-  const cleanup = () => {
-    if (observer) {
-      observer.disconnect();
-      observer = void 0;
-    }
-  };
-  const targets = computed(() => {
-    const value = toValue(target);
-    const items = (Array.isArray(value) ? value : [value]).map(unrefElement).filter(notNullish);
-    return new Set(items);
-  });
-  const stopWatch = watch(
-    () => targets.value,
-    (targets2) => {
-      cleanup();
-      if (isSupported.value && window2 && targets2.size) {
-        observer = new MutationObserver(callback);
-        targets2.forEach((el) => observer.observe(el, mutationOptions));
-      }
-    },
-    { immediate: true, flush: "post" }
-  );
-  const takeRecords = () => {
-    return observer == null ? void 0 : observer.takeRecords();
-  };
-  const stop = () => {
-    cleanup();
-    stopWatch();
-  };
-  tryOnScopeDispose(stop);
-  return {
-    isSupported,
-    stop,
-    takeRecords
-  };
-}
 function useCssVar(prop, target, options = {}) {
   const { window: window2 = defaultWindow, initialValue = "", observe = false } = options;
   const variable = ref(initialValue);
@@ -3455,10 +3484,10 @@ function useCycleList(list, options) {
       return index2;
     },
     set(v) {
-      set4(v);
+      set3(v);
     }
   });
-  function set4(i) {
+  function set3(i) {
     const targetList = listRef.value;
     const length = targetList.length;
     const index2 = (i % length + length) % length;
@@ -3467,7 +3496,7 @@ function useCycleList(list, options) {
     return value;
   }
   function shift(delta = 1) {
-    return set4(index.value + delta);
+    return set3(index.value + delta);
   }
   function next(n = 1) {
     return shift(n);
@@ -3479,13 +3508,13 @@ function useCycleList(list, options) {
     var _a, _b;
     return (_b = toValue((_a = options == null ? void 0 : options.initialValue) != null ? _a : toValue(list)[0])) != null ? _b : void 0;
   }
-  watch(listRef, () => set4(index.value));
+  watch(listRef, () => set3(index.value));
   return {
     state,
     index,
     next,
     prev,
-    go: set4
+    go: set3
   };
 }
 function useDark(options = {}) {
@@ -3821,9 +3850,11 @@ function useDisplayMedia(options = {}) {
   const constraint = { audio, video };
   const stream = shallowRef();
   async function _start() {
+    var _a2;
     if (!isSupported.value || stream.value)
       return;
     stream.value = await navigator.mediaDevices.getDisplayMedia(constraint);
+    (_a2 = stream.value) == null ? void 0 : _a2.getTracks().forEach((t) => t.addEventListener("ended", stop));
     return stream.value;
   }
   async function _stop() {
@@ -3902,6 +3933,8 @@ function useDraggable(target, options = {}) {
   };
   const start = (e) => {
     var _a2;
+    if (e.button !== 0)
+      return;
     if (toValue(options.disabled) || !filterEvent(e))
       return;
     if (toValue(exact) && e.target !== toValue(target))
@@ -4187,9 +4220,9 @@ function useElementSize(target, initialSize = { width: 0, height: 0 }, options =
       if (window2 && isSVG.value) {
         const $elem = unrefElement(target);
         if ($elem) {
-          const styles = window2.getComputedStyle($elem);
-          width.value = Number.parseFloat(styles.width);
-          height.value = Number.parseFloat(styles.height);
+          const rect = $elem.getBoundingClientRect();
+          width.value = rect.width;
+          height.value = rect.height;
         }
       } else {
         if (boxSize) {
@@ -4358,6 +4391,7 @@ function useEventSource(url, events2 = [], options = {}) {
   const eventSource = ref(null);
   const error = shallowRef(null);
   const urlRef = toRef2(url);
+  const lastEventId = shallowRef(null);
   let explicitlyClosed = false;
   let retried = 0;
   const {
@@ -4404,6 +4438,7 @@ function useEventSource(url, events2 = [], options = {}) {
     es.onmessage = (e) => {
       event.value = null;
       data.value = e.data;
+      lastEventId.value = e.lastEventId;
     };
     for (const event_name of events2) {
       useEventListener(es, event_name, (e) => {
@@ -4430,7 +4465,8 @@ function useEventSource(url, events2 = [], options = {}) {
     status,
     error,
     open,
-    close
+    close,
+    lastEventId
   };
 }
 function useEyeDropper(options = {}) {
@@ -4485,8 +4521,9 @@ var payloadMapping = {
 function isFetchOptions(obj) {
   return obj && containsProp(obj, "immediate", "refetch", "initialData", "timeout", "beforeFetch", "afterFetch", "onFetchError", "fetch", "updateDataOnError");
 }
+var reAbsolute = /^(?:[a-z][a-z\d+\-.]*:)?\/\//i;
 function isAbsoluteURL(url) {
-  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
+  return reAbsolute.test(url);
 }
 function headersToObject(headers) {
   if (typeof Headers !== "undefined" && headers instanceof Headers)
@@ -4831,7 +4868,7 @@ function useFileDialog(options = {}) {
   }
   const reset = () => {
     files.value = null;
-    if (input) {
+    if (input && input.value) {
       input.value = "";
       trigger(null);
     }
@@ -4955,7 +4992,7 @@ function useFileSystemAccess(options = {}) {
   };
 }
 function useFocus(target, options = {}) {
-  const { initialValue = false, focusVisible = false } = options;
+  const { initialValue = false, focusVisible = false, preventScroll = false } = options;
   const innerFocused = ref(false);
   const targetElement = computed(() => unrefElement(target));
   useEventListener(targetElement, "focus", (event) => {
@@ -4971,7 +5008,7 @@ function useFocus(target, options = {}) {
       if (!value && innerFocused.value)
         (_a = targetElement.value) == null ? void 0 : _a.blur();
       else if (value && !innerFocused.value)
-        (_b = targetElement.value) == null ? void 0 : _b.focus();
+        (_b = targetElement.value) == null ? void 0 : _b.focus({ preventScroll });
     }
   });
   watch(
@@ -5185,12 +5222,15 @@ function useGamepad(options = {}) {
     if (gamepad.hapticActuators)
       hapticActuators.push(...gamepad.hapticActuators);
     return {
-      ...gamepad,
       id: gamepad.id,
+      index: gamepad.index,
+      connected: gamepad.connected,
+      mapping: gamepad.mapping,
+      timestamp: gamepad.timestamp,
+      vibrationActuator: gamepad.vibrationActuator,
       hapticActuators,
       axes: gamepad.axes.map((axes) => axes),
-      buttons: gamepad.buttons.map((button) => ({ pressed: button.pressed, touched: button.touched, value: button.value })),
-      index: gamepad.index
+      buttons: gamepad.buttons.map((button) => ({ pressed: button.pressed, touched: button.touched, value: button.value }))
     };
   };
   const updateGamepadState = () => {
@@ -5411,7 +5451,7 @@ function useScroll(element, options = {}) {
     }
   });
   function scrollTo2(_x, _y) {
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
     if (!window2)
       return;
     const _element = toValue(element);
@@ -5422,6 +5462,11 @@ function useScroll(element, options = {}) {
       left: (_b = toValue(_x)) != null ? _b : x.value,
       behavior: toValue(behavior)
     });
+    const scrollContainer = ((_d = _element == null ? void 0 : _element.document) == null ? void 0 : _d.documentElement) || (_element == null ? void 0 : _element.documentElement) || _element;
+    if (x != null)
+      internalX.value = scrollContainer.scrollLeft;
+    if (y != null)
+      internalY.value = scrollContainer.scrollTop;
   }
   const isScrolling = ref(false);
   const arrivedState = reactive({
@@ -5724,6 +5769,7 @@ var defaultOptions = {
   tracks: []
 };
 function useMediaControls(target, options = {}) {
+  target = toRef2(target);
   options = {
     ...defaultOptions,
     ...options
@@ -5936,7 +5982,7 @@ function getMapVue2Compat() {
   const data = shallowReactive({});
   return {
     get: (key) => data[key],
-    set: (key, value) => set3(data, key, value),
+    set: (key, value) => set(data, key, value),
     has: (key) => hasOwn(data, key),
     delete: (key) => del(data, key),
     clear: () => {
@@ -5950,7 +5996,7 @@ function useMemoize(resolver, options) {
   const initCache = () => {
     if (options == null ? void 0 : options.cache)
       return shallowReactive(options.cache);
-    if (isVue22)
+    if (isVue2)
       return getMapVue2Compat();
     return shallowReactive(/* @__PURE__ */ new Map());
   };
@@ -6408,8 +6454,9 @@ function useParallax(target, options = {}) {
     elementHeight: height
   } = useMouseInElement(target, { handleOutside: false, window: window2 });
   const source = computed(() => {
-    if (orientation.isSupported && (orientation.alpha != null && orientation.alpha !== 0 || orientation.gamma != null && orientation.gamma !== 0))
+    if (orientation.isSupported && (orientation.alpha != null && orientation.alpha !== 0 || orientation.gamma != null && orientation.gamma !== 0)) {
       return "deviceOrientation";
+    }
     return "mouse";
   });
   const roll = computed(() => {
@@ -6879,14 +6926,19 @@ var elInitialOverflow = /* @__PURE__ */ new WeakMap();
 function useScrollLock(element, initialState = false) {
   const isLocked = ref(initialState);
   let stopTouchMoveListener = null;
+  let initialOverflow = "";
   watch(toRef2(element), (el) => {
     const target = resolveElement(toValue(el));
     if (target) {
       const ele = target;
       if (!elInitialOverflow.get(ele))
         elInitialOverflow.set(ele, ele.style.overflow);
+      if (ele.style.overflow !== "hidden")
+        initialOverflow = ele.style.overflow;
+      if (ele.style.overflow === "hidden")
+        return isLocked.value = true;
       if (isLocked.value)
-        ele.style.overflow = "hidden";
+        return ele.style.overflow = "hidden";
     }
   }, {
     immediate: true
@@ -6909,12 +6961,11 @@ function useScrollLock(element, initialState = false) {
     isLocked.value = true;
   };
   const unlock = () => {
-    var _a;
     const el = resolveElement(toValue(element));
     if (!el || !isLocked.value)
       return;
     isIOS && (stopTouchMoveListener == null ? void 0 : stopTouchMoveListener());
-    el.style.overflow = (_a = elInitialOverflow.get(el)) != null ? _a : "";
+    el.style.overflow = initialOverflow;
     elInitialOverflow.delete(el);
     isLocked.value = false;
   };
@@ -6926,8 +6977,7 @@ function useScrollLock(element, initialState = false) {
     set(v) {
       if (v)
         lock();
-      else
-        unlock();
+      else unlock();
     }
   });
 }
@@ -7026,10 +7076,9 @@ function useSpeechRecognition(options = {}) {
         recognition.lang = lang2;
     });
     recognition.onresult = (event) => {
-      const transcript = Array.from(event.results).map((result2) => {
-        isFinal.value = result2.isFinal;
-        return result2[0];
-      }).map((result2) => result2.transcript).join("");
+      const currentResult = event.results[event.resultIndex];
+      const { transcript } = currentResult[0];
+      isFinal.value = currentResult.isFinal;
       result.value = transcript;
       error.value = void 0;
     };
@@ -7270,8 +7319,7 @@ function useStorageAsync(key, initialValue, storage, options = {}) {
           data.value = mergeDefaults(value, rawInit);
         else if (type === "object" && !Array.isArray(value))
           data.value = { ...rawInit, ...value };
-        else
-          data.value = value;
+        else data.value = value;
       } else {
         data.value = await serializer.read(rawValue);
       }
@@ -7534,7 +7582,7 @@ function useTextareaAutosize(options) {
   const styleProp = (_a = options == null ? void 0 : options.styleProp) != null ? _a : "height";
   const textareaScrollHeight = ref(1);
   function triggerResize() {
-    var _a2, _b;
+    var _a2;
     if (!textarea.value)
       return;
     let height = "";
@@ -7545,9 +7593,12 @@ function useTextareaAutosize(options) {
     else
       height = `${textareaScrollHeight.value}px`;
     textarea.value.style[styleProp] = height;
-    (_b = options == null ? void 0 : options.onResize) == null ? void 0 : _b.call(options);
   }
   watch([input, textarea], () => nextTick(triggerResize), { immediate: true });
+  watch(textareaScrollHeight, () => {
+    var _a2;
+    return (_a2 = options == null ? void 0 : options.onResize) == null ? void 0 : _a2.call(options);
+  });
   useResizeObserver(textarea, () => triggerResize());
   if (options == null ? void 0 : options.watch)
     watch(options.watch, triggerResize, { immediate: true, deep: true });
@@ -8023,8 +8074,7 @@ function useUserMedia(options = {}) {
     (v) => {
       if (v)
         _start();
-      else
-        _stop();
+      else _stop();
     },
     { immediate: true }
   );
@@ -8064,7 +8114,7 @@ function useVModel(props, key, emit, options = {}) {
   const _emit = emit || (vm == null ? void 0 : vm.emit) || ((_a = vm == null ? void 0 : vm.$emit) == null ? void 0 : _a.bind(vm)) || ((_c = (_b = vm == null ? void 0 : vm.proxy) == null ? void 0 : _b.$emit) == null ? void 0 : _c.bind(vm == null ? void 0 : vm.proxy));
   let event = eventName;
   if (!key) {
-    if (isVue22) {
+    if (isVue2) {
       const modelOptions = (_e = (_d = vm == null ? void 0 : vm.proxy) == null ? void 0 : _d.$options) == null ? void 0 : _e.model;
       key = (modelOptions == null ? void 0 : modelOptions.value) || "value";
       if (!eventName)
@@ -8252,8 +8302,8 @@ function createGetDistance(itemSize, source) {
     return size;
   };
 }
-function useWatchForSizes(size, list, calculateRange) {
-  watch([size.width, size.height, list], () => {
+function useWatchForSizes(size, list, containerRef, calculateRange) {
+  watch([size.width, size.height, list, containerRef], () => {
     calculateRange();
   });
 }
@@ -8287,7 +8337,7 @@ function useHorizontalVirtualList(options, list) {
   const getDistanceLeft = createGetDistance(itemWidth, source);
   const offsetLeft = computed(() => getDistanceLeft(state.value.start));
   const totalWidth = createComputedTotalSize(itemWidth, source);
-  useWatchForSizes(size, list, calculateRange);
+  useWatchForSizes(size, list, containerRef, calculateRange);
   const scrollTo2 = createScrollTo("horizontal", calculateRange, getDistanceLeft, containerRef);
   const wrapperProps = computed(() => {
     return {
@@ -8319,7 +8369,7 @@ function useVerticalVirtualList(options, list) {
   const getDistanceTop = createGetDistance(itemHeight, source);
   const offsetTop = computed(() => getDistanceTop(state.value.start));
   const totalHeight = createComputedTotalSize(itemHeight, source);
-  useWatchForSizes(size, list, calculateRange);
+  useWatchForSizes(size, list, containerRef, calculateRange);
   const scrollTo2 = createScrollTo("vertical", calculateRange, getDistanceTop, containerRef);
   const wrapperProps = computed(() => {
     return {
@@ -8382,7 +8432,16 @@ function useWebNotification(options = {}) {
     requestPermissions: _requestForPermissions = true
   } = options;
   const defaultWebNotificationOptions = options;
-  const isSupported = useSupported(() => !!window2 && "Notification" in window2);
+  const isSupported = useSupported(() => {
+    if (!window2 || !("Notification" in window2))
+      return false;
+    try {
+      new Notification("");
+    } catch (e) {
+      return false;
+    }
+    return true;
+  });
   const permissionGranted = ref(isSupported.value && "permission" in Notification && Notification.permission === "granted");
   const notification = ref(null);
   const ensurePermissions = async () => {
@@ -8579,6 +8638,7 @@ function useWebSocket(url, options = {}) {
   };
   if (immediate)
     open();
+  watch(urlRef, open);
   return {
     data,
     status,
@@ -8636,14 +8696,24 @@ function jobRunner(userFunc) {
     });
   };
 }
-function depsParser(deps) {
-  if (deps.length === 0)
+function depsParser(deps, localDeps) {
+  if (deps.length === 0 && localDeps.length === 0)
     return "";
   const depsString = deps.map((dep) => `'${dep}'`).toString();
-  return `importScripts(${depsString})`;
+  const depsFunctionString = localDeps.filter((dep) => typeof dep === "function").map((fn) => {
+    const str = fn.toString();
+    if (str.trim().startsWith("function")) {
+      return str;
+    } else {
+      const name = fn.name;
+      return `const ${name} = ${str}`;
+    }
+  }).join(";");
+  const importString = `importScripts(${depsString});`;
+  return `${depsString.trim() === "" ? "" : importString} ${depsFunctionString}`;
 }
-function createWorkerBlobUrl(fn, deps) {
-  const blobCode = `${depsParser(deps)}; onmessage=(${jobRunner})(${fn})`;
+function createWorkerBlobUrl(fn, deps, localDeps) {
+  const blobCode = `${depsParser(deps, localDeps)}; onmessage=(${jobRunner})(${fn})`;
   const blob = new Blob([blobCode], { type: "text/javascript" });
   const url = URL.createObjectURL(blob);
   return url;
@@ -8651,6 +8721,7 @@ function createWorkerBlobUrl(fn, deps) {
 function useWebWorkerFn(fn, options = {}) {
   const {
     dependencies = [],
+    localDependencies = [],
     timeout,
     window: window2 = defaultWindow
   } = options;
@@ -8671,7 +8742,7 @@ function useWebWorkerFn(fn, options = {}) {
   workerTerminate();
   tryOnScopeDispose(workerTerminate);
   const generateWorker = () => {
-    const blobUrl = createWorkerBlobUrl(fn, dependencies);
+    const blobUrl = createWorkerBlobUrl(fn, dependencies, localDependencies);
     const newWorker = new Worker(blobUrl);
     newWorker._url = blobUrl;
     newWorker.onmessage = (e) => {
@@ -8940,9 +9011,10 @@ export {
   onLongPress,
   onStartTyping,
   templateRef,
-  useActiveElement,
   useMounted,
   useSupported,
+  useMutationObserver,
+  useActiveElement,
   useRafFn,
   useAnimate,
   useAsyncQueue,
@@ -8978,7 +9050,6 @@ export {
   usePreferredDark,
   useColorMode,
   useConfirmDialog,
-  useMutationObserver,
   useCssVar,
   useCurrentElement,
   useCycleList,
@@ -9089,4 +9160,13 @@ export {
   useWindowScroll,
   useWindowSize
 };
-//# sourceMappingURL=chunk-WBYXAOFP.js.map
+/*! Bundled license information:
+
+vitepress/lib/vue-demi.mjs:
+  (**
+   * vue-demi v0.14.7
+   * Copyright (c) 2020-present, Anthony Fu
+   * @license MIT
+   *)
+*/
+//# sourceMappingURL=chunk-K5OBGKJL.js.map

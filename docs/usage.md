@@ -7,9 +7,17 @@ npm install --save logmoji
 # Usage
 
 ```javascript
-const logger = require("logmoji")({ timestamp: false });
+const logger = require("logmoji")({
+  timestamp: false,
+  disablePrefixText: false,
+  logSymbols: {
+    success: "🗣️",
+  },
+});
 
 logger.success("You did it!");
+
+// Output:  🗣️ You did it
 ```
 
 # Available Log Functions

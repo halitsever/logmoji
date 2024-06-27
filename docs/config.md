@@ -1,7 +1,15 @@
 # Available config parameters:
 
 timestamp: `true` | `false`<br>
-Description: `When enabled its prints timestamp in all logs`
+logSymbols: `{
+    success: string;
+    fail: string;
+    error: string;
+    info: string;
+    warn: string;
+    log: string;
+}`<br/>
+disablePrefixText: `true` | `false`
 
 # Disabling logs for prod:
 

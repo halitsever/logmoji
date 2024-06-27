@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Logmoji"
   text: "Logger with emojis"
-  tagline: 1.0.5
+  tagline: 1.0.6
   actions:
     - theme: brand
       text: Get Started

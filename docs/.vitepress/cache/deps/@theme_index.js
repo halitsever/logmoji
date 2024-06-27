@@ -1,12 +1,12 @@
 import {
   useMediaQuery
-} from "./chunk-WBYXAOFP.js";
+} from "./chunk-K5OBGKJL.js";
 import {
   computed,
   ref,
   shallowRef,
   watch
-} from "./chunk-CKQ4TNQ3.js";
+} from "./chunk-NRR3UUIY.js";
 
 // node_modules/vitepress/dist/client/theme-default/index.js
 import "/Users/halit/Desktop/logmoji/node_modules/vitepress/dist/client/theme-default/styles/fonts.css";
@@ -35,9 +35,6 @@ import { default as default10 } from "/Users/halit/Desktop/logmoji/node_modules/
 import { default as default11 } from "/Users/halit/Desktop/logmoji/node_modules/vitepress/dist/client/theme-default/components/VPTeamPageTitle.vue";
 import { default as default12 } from "/Users/halit/Desktop/logmoji/node_modules/vitepress/dist/client/theme-default/components/VPTeamPageSection.vue";
 import { default as default13 } from "/Users/halit/Desktop/logmoji/node_modules/vitepress/dist/client/theme-default/components/VPTeamMembers.vue";
-
-// node_modules/vitepress/dist/client/shared.js
-var inBrowser = typeof document !== "undefined";
 
 // node_modules/vitepress/dist/client/theme-default/support/utils.js
 import { withBase } from "vitepress";
@@ -91,14 +88,6 @@ function addBase(items, _base) {
     if (item.items)
       item.items = addBase(item.items, base);
     return item;
-  });
-}
-
-// node_modules/vitepress/dist/client/theme-default/composables/hash.js
-var hashRef = ref(inBrowser ? location.hash : "");
-if (inBrowser) {
-  window.addEventListener("hashchange", () => {
-    hashRef.value = location.hash;
   });
 }
 
@@ -205,23 +194,22 @@ function resolveHeaders(headers, range) {
     resolvedHeaders.push({ element, link });
   }
   const ret = [];
-  outer:
-    for (let i = 0; i < headers.length; i++) {
-      const cur = headers[i];
-      if (i === 0) {
-        ret.push(cur);
-      } else {
-        for (let j = i - 1; j >= 0; j--) {
-          const prev = headers[j];
-          if (prev.level < cur.level) {
-            ;
-            (prev.children || (prev.children = [])).push(cur);
-            continue outer;
-          }
+  outer: for (let i = 0; i < headers.length; i++) {
+    const cur = headers[i];
+    if (i === 0) {
+      ret.push(cur);
+    } else {
+      for (let j = i - 1; j >= 0; j--) {
+        const prev = headers[j];
+        if (prev.level < cur.level) {
+          ;
+          (prev.children || (prev.children = [])).push(cur);
+          continue outer;
         }
-        ret.push(cur);
       }
+      ret.push(cur);
     }
+  }
   return ret;
 }
 
