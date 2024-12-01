@@ -6,6 +6,7 @@ const createLogger = (params) => {
   const config = configInstance.getConfig();
 
   const logSymbols = config.logSymbols;
+  const logColors = config.logColors;
 
   const log = (level, ...args) => {
     const logFunction = {
@@ -21,7 +22,7 @@ const createLogger = (params) => {
     const isLoggingDisabled = config?.isLoggingDisabled;
 
     if (isLoggingDisabled) return;
-    logFunction[level](`${timestamp} ${logSymbols[level]}${config?.disablePrefixText ? "" : level.charAt(0).toUpperCase() + level.slice(1) + ": "}`, ...args);
+    logFunction[level](`${logColors[level]}${timestamp} ${logSymbols[level]} ${config?.disablePrefixText ? "" : level.charAt(0).toUpperCase() + level.slice(1) + ": "}`, ...args);
   };
 
   return {

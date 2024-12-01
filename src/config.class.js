@@ -12,6 +12,14 @@ class ConfigClass {
         info: this.validateEmoji(logSymbols?.info) || "ℹ️",
         log: this.validateEmoji(logSymbols?.log) || "📄",
       },
+      logColors: {
+        success: "\x1b[32m",
+        fail: "\x1b[31m",
+        warn: "\x1b[33m",
+        error: "\x1b[31m",
+        info: "\x1b[36m",
+        log: "\x1b[37m",
+      },
     };
   }
 
