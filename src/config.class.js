@@ -17,8 +17,8 @@ class ConfigClass {
         fail: "\x1b[31m",
         warn: "\x1b[33m",
         error: "\x1b[31m",
-        info: "\x1b[36m",
-        log: "\x1b[37m",
+        info: "\x1b[0m",
+        log: "\x1b[0m",
       },
     };
   }
