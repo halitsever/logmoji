@@ -19,6 +19,7 @@ class ConfigClass {
         error: "\x1b[31m",
         info: "\x1b[0m",
         log: "\x1b[0m",
+        clear: "\x1b[0m",
       },
     };
   }
