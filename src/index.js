@@ -23,7 +23,7 @@ const createLogger = (params) => {
 
     if (isLoggingDisabled) return;
     logFunction[level](
-      `${logColors[level]}${timestamp} ${logSymbols[level]} ${config?.disablePrefixText ? "" : level.charAt(0).toUpperCase() + level.slice(1) + ": "}`,
+      `${logColors[level]}${timestamp} ${logSymbols[level]}${config?.disablePrefixText ? "" : " " + level.charAt(0).toUpperCase() + level.slice(1) + ":"}`,
       ...args,
       logColors.clear
     );
