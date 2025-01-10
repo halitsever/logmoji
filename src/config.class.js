@@ -9,7 +9,7 @@ class ConfigClass {
         fail: this.validateEmoji(logSymbols?.fail) || "📛",
         warn: this.validateEmoji(logSymbols?.warn) || "🟠",
         error: this.validateEmoji(logSymbols?.error) || "🚨",
-        info: this.validateEmoji(logSymbols?.info) || "ℹ️",
+        info: this.validateEmoji(logSymbols?.info) || "📄",
         log: this.validateEmoji(logSymbols?.log) || "📄",
       },
       logColors: {
