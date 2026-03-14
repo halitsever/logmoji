@@ -8,7 +8,7 @@ const createLogger = (params) => {
   const logSymbols = config.logSymbols;
   const logColors = config.logColors;
 
-  const log = (level, ...args) => {
+  const log = (level, context, ...args) => {
     const logFunction = {
       success: console.info,
       fail: console.warn,
@@ -20,22 +20,33 @@ const createLogger = (params) => {
 
     const timestamp = config?.timestamp ? getDateLog() : "";
     const isLoggingDisabled = config?.isLoggingDisabled;
+    const contextPrefix = context ? ` ${context}` : "";
 
     if (isLoggingDisabled) return;
     logFunction[level](
-      `${logColors[level]}${timestamp} ${logSymbols[level]}${config?.disablePrefixText ? "" : " " + level.charAt(0).toUpperCase() + level.slice(1) + ":"}`,
+      `${logColors[level]}${timestamp} ${logSymbols[level]}${config?.disablePrefixText ? "" : " " + level.charAt(0).toUpperCase() + level.slice(1) + ":"}${contextPrefix}`,
       ...args,
-      logColors.clear
+      logColors.clear,
     );
   };
 
+  const createContext = (context) => ({
+    success: (...args) => log("success", context, ...args),
+    fail: (...args) => log("fail", context, ...args),
+    error: (...args) => log("error", context, ...args),
+    info: (...args) => log("info", context, ...args),
+    warn: (...args) => log("warn", context, ...args),
+    log: (...args) => log("log", context, ...args),
+  });
+
   return {
-    success: (...args) => log("success", ...args),
-    fail: (...args) => log("fail", ...args),
-    error: (...args) => log("error", ...args),
-    info: (...args) => log("info", ...args),
-    warn: (...args) => log("warn", ...args),
-    log: (...args) => log("log", ...args),
+    success: (...args) => log("success", "", ...args),
+    fail: (...args) => log("fail", "", ...args),
+    error: (...args) => log("error", "", ...args),
+    info: (...args) => log("info", "", ...args),
+    warn: (...args) => log("warn", "", ...args),
+    log: (...args) => log("log", "", ...args),
+    createContext,
   };
 };
 
