@@ -16,6 +16,11 @@ const createLogger = (params) => {
       error: console.error,
       info: console.info,
       log: console.log,
+      alert: console.error,
+      crit: console.error,
+      warning: console.warn,
+      debug: console.log,
+      silly: console.log,
     };
 
     const timestamp = config?.timestamp ? getDateLog() : "";
@@ -37,6 +42,11 @@ const createLogger = (params) => {
     info: (...args) => log("info", context, ...args),
     warn: (...args) => log("warn", context, ...args),
     log: (...args) => log("log", context, ...args),
+    alert: (...args) => log("alert", context, ...args),
+    crit: (...args) => log("crit", context, ...args),
+    warning: (...args) => log("warning", context, ...args),
+    debug: (...args) => log("debug", context, ...args),
+    silly: (...args) => log("silly", context, ...args),
   });
 
   return {
@@ -46,6 +56,11 @@ const createLogger = (params) => {
     info: (...args) => log("info", "", ...args),
     warn: (...args) => log("warn", "", ...args),
     log: (...args) => log("log", "", ...args),
+    alert: (...args) => log("alert", "", ...args),
+    crit: (...args) => log("crit", "", ...args),
+    warning: (...args) => log("warning", "", ...args),
+    debug: (...args) => log("debug", "", ...args),
+    silly: (...args) => log("silly", "", ...args),
     createContext,
   };
 };

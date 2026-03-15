@@ -5,6 +5,11 @@ interface ILogSymbols {
     info: string;
     warn: string;
     log: string;
+    alert: string;
+    crit: string;
+    warning: string;
+    debug: string;
+    silly: string;
 }
 
 export interface ConfigOptions {

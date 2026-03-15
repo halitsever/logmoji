@@ -11,6 +11,11 @@ class ConfigClass {
         error: this.validateEmoji(logSymbols?.error) || "🚨",
         info: this.validateEmoji(logSymbols?.info) || "📄",
         log: this.validateEmoji(logSymbols?.log) || "📄",
+        alert: this.validateEmoji(logSymbols?.alert) || "😡",
+        crit: this.validateEmoji(logSymbols?.crit) || "😱",
+        warning: this.validateEmoji(logSymbols?.warning) || "⚠️",
+        debug: this.validateEmoji(logSymbols?.debug) || "🛠️",
+        silly: this.validateEmoji(logSymbols?.silly) || "🤪",
       },
       logColors: {
         success: "\x1b[32m",
@@ -19,6 +24,11 @@ class ConfigClass {
         error: "\x1b[31m",
         info: "\x1b[0m",
         log: "\x1b[0m",
+        alert: "\x1b[91m",
+        crit: "\x1b[35m",
+        warning: "\x1b[33m",
+        debug: "\x1b[90m",
+        silly: "\x1b[2m",
         clear: "\x1b[0m",
       },
     };
