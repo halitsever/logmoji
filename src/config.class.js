@@ -1,4 +1,13 @@
+/**
+ * Builds and validates runtime logger configuration.
+ */
 class ConfigClass {
+  /**
+   * @param {Object} params Constructor options.
+   * @param {boolean} [params.timestamp=false] Enables timestamp output.
+   * @param {boolean} [params.disablePrefixText=false] Hides textual level prefixes.
+   * @param {Object} [params.logSymbols] Custom emoji symbols by level.
+   */
   constructor({ timestamp, disablePrefixText, logSymbols }) {
     this.config = {
       timestamp: timestamp || false,
@@ -34,11 +43,22 @@ class ConfigClass {
     };
   }
 
+  /**
+   * Returns a valid emoji character or `null` when the input is not an emoji.
+   *
+   * @param {string} emoji Value to validate.
+   * @returns {string|null}
+   */
   validateEmoji(emoji) {
     const emojiRegex = /\p{Emoji}/u;
     return emojiRegex.test(emoji) ? emoji : null;
   }
 
+  /**
+   * Gets the normalized logger configuration.
+   *
+   * @returns {Object}
+   */
   getConfig() {
     return this.config;
   }

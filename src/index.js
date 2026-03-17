@@ -1,6 +1,53 @@
 const ConfigClass = require("./config.class");
 const getDateLog = require("./utils/get-date-log");
 
+/**
+ * @typedef {Object} LogSymbols
+ * @property {string} success
+ * @property {string} fail
+ * @property {string} warn
+ * @property {string} error
+ * @property {string} info
+ * @property {string} log
+ * @property {string} alert
+ * @property {string} crit
+ * @property {string} warning
+ * @property {string} debug
+ * @property {string} silly
+ */
+
+/**
+ * @typedef {Object} LoggerConfig
+ * @property {boolean} [timestamp=false] Enables ISO timestamp prefix in each log line.
+ * @property {boolean} [disablePrefixText=false] Hides textual level prefixes such as "Info:".
+ * @property {LogSymbols} [logSymbols] Custom symbols for each log level.
+ */
+
+/**
+ * @typedef {Object} LoggerMethods
+ * @property {(...args: any[]) => void} success
+ * @property {(...args: any[]) => void} fail
+ * @property {(...args: any[]) => void} error
+ * @property {(...args: any[]) => void} info
+ * @property {(...args: any[]) => void} warn
+ * @property {(...args: any[]) => void} log
+ * @property {(...args: any[]) => void} alert
+ * @property {(...args: any[]) => void} crit
+ * @property {(...args: any[]) => void} warning
+ * @property {(...args: any[]) => void} debug
+ * @property {(...args: any[]) => void} silly
+ */
+
+/**
+ * @typedef {LoggerMethods & { createContext: (context: string) => LoggerMethods }} Logger
+ */
+
+/**
+ * Creates a logger instance with configured symbols, colors and output behavior.
+ *
+ * @param {LoggerConfig} [params] Logger configuration options.
+ * @returns {Logger} Logger methods and contextual logger factory.
+ */
 const createLogger = (params) => {
   const configInstance = new ConfigClass({ ...(params || {}) });
   const config = configInstance.getConfig();
@@ -8,6 +55,14 @@ const createLogger = (params) => {
   const logSymbols = config.logSymbols;
   const logColors = config.logColors;
 
+  /**
+   * Writes a single formatted log line for the provided level.
+   *
+   * @param {keyof LoggerMethods} level Log severity level.
+   * @param {string} context Context text prefixed to the message.
+   * @param {...any} args Payload forwarded to the console method.
+   * @returns {void}
+   */
   const log = (level, context, ...args) => {
     const logFunction = {
       success: console.info,
@@ -35,6 +90,12 @@ const createLogger = (params) => {
     );
   };
 
+  /**
+   * Creates level-specific logging methods with an immutable context prefix.
+   *
+   * @param {string} context Context label shown before message payload.
+   * @returns {LoggerMethods} Context-bound logger methods.
+   */
   const createContext = (context) => ({
     success: (...args) => log("success", context, ...args),
     fail: (...args) => log("fail", context, ...args),
