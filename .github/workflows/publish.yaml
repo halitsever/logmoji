@@ -1,21 +1,27 @@
 name: Publish to NPM
+
 on:
   release:
     types: [created]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: "16.x"
+          version: 11
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
           registry-url: "https://registry.npmjs.org"
-      - name: Install dependencies and test 🧪
-        run: npm ci && npm run test
-      - name: Publish package on NPM 📦
-        run: npm publish
+          cache: pnpm
+      - name: Install dependencies and test
+        run: pnpm install --frozen-lockfile && pnpm test
+      - name: Publish package on NPM
+        run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
