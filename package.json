@@ -1,9 +1,16 @@
 {
   "name": "logmoji",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "description": "🪵 Very small logging package with emojis for node.js",
   "main": "src/index.js",
   "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./src/index.js",
+      "import": "./src/index.mjs",
+      "types": "./types/index.d.ts"
+    }
+  },
   "scripts": {
     "types": "tsc",
     "test": "jest",

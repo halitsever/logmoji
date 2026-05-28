@@ -6,18 +6,26 @@ declare class ConfigClass {
     /**
      * @param {Object} params Constructor options.
      * @param {boolean} [params.timestamp=false] Enables timestamp output.
+     * @param {'iso'|'locale'|'unix'} [params.dateFormat='iso'] Timestamp format when timestamp is enabled.
      * @param {boolean} [params.disablePrefixText=false] Hides textual level prefixes.
      * @param {Object} [params.logSymbols] Custom emoji symbols by level.
+     * @param {Object} [params.logColors] Custom ANSI color codes by level.
+     * @param {string} [params.minLevel] Minimum log level to output — levels below this are suppressed.
      */
-    constructor({ timestamp, disablePrefixText, logSymbols }: {
+    constructor({ timestamp, dateFormat, disablePrefixText, logSymbols, logColors, minLevel }: {
         timestamp?: boolean;
+        dateFormat?: "iso" | "locale" | "unix";
         disablePrefixText?: boolean;
         logSymbols?: any;
+        logColors?: any;
+        minLevel?: string;
     });
     config: {
         timestamp: boolean;
-        isLoggingDisabled: string | boolean;
+        dateFormat: "iso" | "locale" | "unix";
+        isLoggingDisabled: boolean;
         disablePrefixText: boolean;
+        minLevel: string;
         logSymbols: {
             success: string;
             fail: string;
@@ -53,6 +61,13 @@ declare class ConfigClass {
      * @returns {string|null}
      */
     validateEmoji(emoji: string): string | null;
+    /**
+     * Returns a valid ANSI escape color code or `null` when the input is not a valid ANSI code.
+     *
+     * @param {string} color Value to validate.
+     * @returns {string|null}
+     */
+    validateAnsiColor(color: string): string | null;
     /**
      * Gets the normalized logger configuration.
      *

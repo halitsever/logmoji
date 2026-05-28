@@ -1,5 +1,5 @@
 const ConfigClass = require("./config.class");
-const getDateLog = require("./utils/get-date-log");
+const formatDate = require("./utils/format-date");
 
 /**
  * @typedef {Object} LogSymbols
@@ -17,10 +17,36 @@ const getDateLog = require("./utils/get-date-log");
  */
 
 /**
+ * @typedef {Object} LogColors
+ * @property {string} [success]
+ * @property {string} [fail]
+ * @property {string} [warn]
+ * @property {string} [error]
+ * @property {string} [info]
+ * @property {string} [log]
+ * @property {string} [alert]
+ * @property {string} [crit]
+ * @property {string} [warning]
+ * @property {string} [debug]
+ * @property {string} [silly]
+ */
+
+/**
+ * @typedef {'iso'|'locale'|'unix'} DateFormat
+ */
+
+/**
+ * @typedef {'silly'|'debug'|'log'|'info'|'success'|'warn'|'warning'|'fail'|'alert'|'error'|'crit'} LogLevel
+ */
+
+/**
  * @typedef {Object} LoggerConfig
- * @property {boolean} [timestamp=false] Enables ISO timestamp prefix in each log line.
+ * @property {boolean} [timestamp=false] Enables timestamp prefix in each log line.
+ * @property {DateFormat} [dateFormat='iso'] Format for the timestamp when timestamp is enabled.
  * @property {boolean} [disablePrefixText=false] Hides textual level prefixes such as "Info:".
- * @property {LogSymbols} [logSymbols] Custom symbols for each log level.
+ * @property {LogSymbols} [logSymbols] Custom emoji symbols for each log level.
+ * @property {LogColors} [logColors] Custom ANSI escape code colors for each log level.
+ * @property {LogLevel} [minLevel] Minimum log level to output. Levels below this are suppressed.
  */
 
 /**
@@ -39,8 +65,11 @@ const getDateLog = require("./utils/get-date-log");
  */
 
 /**
- * @typedef {LoggerMethods & { createContext: (context: string) => LoggerMethods }} Logger
+ * @typedef {LoggerMethods & { createContext: (context: string) => Logger }} Logger
  */
+
+// Ordered from least to most severe — used for minLevel filtering.
+const LEVEL_ORDER = ["silly", "debug", "log", "info", "success", "warn", "warning", "fail", "alert", "error", "crit"];
 
 /**
  * Creates a logger instance with configured symbols, colors and output behavior.
@@ -64,6 +93,14 @@ const createLogger = (params) => {
    * @returns {void}
    */
   const log = (level, context, ...args) => {
+    if (config.isLoggingDisabled) return;
+
+    if (config.minLevel) {
+      const levelIdx = LEVEL_ORDER.indexOf(level);
+      const minIdx = LEVEL_ORDER.indexOf(config.minLevel);
+      if (levelIdx !== -1 && minIdx !== -1 && levelIdx < minIdx) return;
+    }
+
     const logFunction = {
       success: console.info,
       fail: console.warn,
@@ -78,13 +115,11 @@ const createLogger = (params) => {
       silly: console.log,
     };
 
-    const timestamp = config?.timestamp ? getDateLog() : "";
-    const isLoggingDisabled = config?.isLoggingDisabled;
+    const timestamp = config.timestamp ? formatDate(config.dateFormat) : "";
     const contextPrefix = context ? ` ${context}` : "";
 
-    if (isLoggingDisabled) return;
     logFunction[level](
-      `${logColors[level]}${timestamp} ${logSymbols[level]}${config?.disablePrefixText ? "" : " " + level.charAt(0).toUpperCase() + level.slice(1) + ":"}${contextPrefix}`,
+      `${logColors[level]}${timestamp} ${logSymbols[level]}${config.disablePrefixText ? "" : " " + level.charAt(0).toUpperCase() + level.slice(1) + ":"}${contextPrefix}`,
       ...args,
       logColors.clear,
     );
@@ -92,11 +127,13 @@ const createLogger = (params) => {
 
   /**
    * Creates level-specific logging methods with an immutable context prefix.
+   * The returned object also exposes `createContext` for further nesting —
+   * nested labels are joined with ` > `.
    *
    * @param {string} context Context label shown before message payload.
-   * @returns {LoggerMethods} Context-bound logger methods.
+   * @returns {Logger} Context-bound logger methods.
    */
-  const createContext = (context) => ({
+  const buildContextLogger = (context) => ({
     success: (...args) => log("success", context, ...args),
     fail: (...args) => log("fail", context, ...args),
     error: (...args) => log("error", context, ...args),
@@ -108,22 +145,10 @@ const createLogger = (params) => {
     warning: (...args) => log("warning", context, ...args),
     debug: (...args) => log("debug", context, ...args),
     silly: (...args) => log("silly", context, ...args),
+    createContext: (childContext) => buildContextLogger(context ? `${context} > ${childContext}` : childContext),
   });
 
-  return {
-    success: (...args) => log("success", "", ...args),
-    fail: (...args) => log("fail", "", ...args),
-    error: (...args) => log("error", "", ...args),
-    info: (...args) => log("info", "", ...args),
-    warn: (...args) => log("warn", "", ...args),
-    log: (...args) => log("log", "", ...args),
-    alert: (...args) => log("alert", "", ...args),
-    crit: (...args) => log("crit", "", ...args),
-    warning: (...args) => log("warning", "", ...args),
-    debug: (...args) => log("debug", "", ...args),
-    silly: (...args) => log("silly", "", ...args),
-    createContext,
-  };
+  return buildContextLogger("");
 };
 
 module.exports = createLogger;

@@ -1,58 +1,300 @@
-const main = require("../index");
+const createLogger = require("../index");
 
-describe("Main function", () => {
-  it("should return functions for logging", () => {
-    const logger = main({ params: { timestamp: true } });
-
-    expect(typeof logger.success).toBe("function");
-    expect(typeof logger.fail).toBe("function");
-    expect(typeof logger.warn).toBe("function");
-    expect(typeof logger.error).toBe("function");
-    expect(typeof logger.info).toBe("function");
-    expect(typeof logger.log).toBe("function");
+describe("createLogger factory", () => {
+  it("returns all 11 log method functions", () => {
+    const logger = createLogger({ timestamp: true });
+    const levels = ["success", "fail", "warn", "error", "info", "log", "alert", "crit", "warning", "debug", "silly"];
+    levels.forEach((level) => expect(typeof logger[level]).toBe("function"));
   });
 
-  it("should return createContext function", () => {
-    const logger = main({});
+  it("returns a createContext function", () => {
+    const logger = createLogger({});
     expect(typeof logger.createContext).toBe("function");
   });
+});
 
-  // TODO: Add unit tests for config & timestamp functions
+describe("isLoggingDisabled (LOGMOJI_DISABLE)", () => {
+  afterEach(() => {
+    delete process.env.LOGMOJI_DISABLE;
+  });
+
+  it("suppresses all output when LOGMOJI_DISABLE=true", () => {
+    process.env.LOGMOJI_DISABLE = "true";
+    const logger = createLogger({});
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("should be hidden");
+
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockRestore();
+  });
+
+  it("does not suppress when LOGMOJI_DISABLE is unset", () => {
+    const logger = createLogger({});
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("should appear");
+
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
+  });
+
+  it("does not suppress when LOGMOJI_DISABLE=false (old bug regression)", () => {
+    process.env.LOGMOJI_DISABLE = "false";
+    const logger = createLogger({});
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("should appear");
+
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
+  });
+});
+
+describe("timestamp and dateFormat", () => {
+  it("omits timestamp when timestamp is false", () => {
+    const logger = createLogger({ timestamp: false });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("msg");
+
+    // ANSI codes like \x1b[0m contain "[" too — check that no date-like bracket (4+ digits) is present
+    expect(spy).toHaveBeenCalledWith(expect.not.stringMatching(/\[\d{4,}/), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+
+  it("includes ISO timestamp when dateFormat is iso", () => {
+    const logger = createLogger({ timestamp: true, dateFormat: "iso" });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("msg");
+
+    // ISO format: 2024-01-15T10:30:00.000Z
+    expect(spy).toHaveBeenCalledWith(expect.stringMatching(/\[\d{4}-\d{2}-\d{2}T/), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+
+  it("includes locale timestamp when dateFormat is locale", () => {
+    const logger = createLogger({ timestamp: true, dateFormat: "locale" });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("msg");
+
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining("["), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+
+  it("includes unix timestamp when dateFormat is unix", () => {
+    const logger = createLogger({ timestamp: true, dateFormat: "unix" });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("msg");
+
+    // Unix format: [1705312200000]
+    expect(spy).toHaveBeenCalledWith(expect.stringMatching(/\[\d+\]/), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+
+  it("defaults to iso format when dateFormat is not specified", () => {
+    const logger = createLogger({ timestamp: true });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("msg");
+
+    expect(spy).toHaveBeenCalledWith(expect.stringMatching(/\[\d{4}-\d{2}-\d{2}T/), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+});
+
+describe("disablePrefixText", () => {
+  it("includes level label when disablePrefixText is false", () => {
+    const logger = createLogger({ disablePrefixText: false });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("msg");
+
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining("Info:"), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+
+  it("omits level label when disablePrefixText is true", () => {
+    const logger = createLogger({ disablePrefixText: true });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("msg");
+
+    expect(spy).toHaveBeenCalledWith(expect.not.stringContaining("Info:"), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+});
+
+describe("minLevel filtering", () => {
+  it("logs everything when minLevel is not set", () => {
+    const logger = createLogger({});
+    const spy = jest.spyOn(console, "log").mockImplementation(() => {});
+
+    logger.silly("msg");
+
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
+  });
+
+  it("suppresses levels below minLevel", () => {
+    const logger = createLogger({ minLevel: "info" });
+    const sillySpy = jest.spyOn(console, "log").mockImplementation(() => {});
+
+    logger.silly("should be hidden");
+    logger.debug("should be hidden");
+
+    expect(sillySpy).not.toHaveBeenCalled();
+    sillySpy.mockRestore();
+  });
+
+  it("allows levels at and above minLevel", () => {
+    const logger = createLogger({ minLevel: "info" });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("visible");
+    logger.success("visible");
+
+    expect(spy).toHaveBeenCalledTimes(2);
+    spy.mockRestore();
+  });
+
+  it("logs everything when minLevel is an unknown string (graceful fallback)", () => {
+    const logger = createLogger({ minLevel: "nonexistent" });
+    const spy = jest.spyOn(console, "log").mockImplementation(() => {});
+
+    logger.silly("msg");
+
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
+  });
+});
+
+describe("custom logSymbols", () => {
+  it("overrides the default emoji when a valid emoji is provided", () => {
+    const logger = createLogger({ logSymbols: { info: "🔥" } });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("msg");
+
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining("🔥"), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+
+  it("falls back to the default emoji when an invalid value is provided", () => {
+    const logger = createLogger({ logSymbols: { info: "not-an-emoji" } });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("msg");
+
+    // default info emoji is 📄
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining("📄"), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+});
+
+describe("custom logColors", () => {
+  it("overrides the default color when a valid ANSI code is provided", () => {
+    const blueAnsi = "\x1b[34m";
+    const logger = createLogger({ logColors: { info: blueAnsi } });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("msg");
+
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining(blueAnsi), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+
+  it("falls back to the default color when an invalid ANSI code is provided", () => {
+    const logger = createLogger({ logColors: { info: "not-a-color" } });
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("msg");
+
+    // default info color is reset \x1b[0m
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining("\x1b[0m"), "msg", expect.any(String));
+    spy.mockRestore();
+  });
 });
 
 describe("createContext", () => {
-  it("should return logging functions", () => {
-    const logger = main({});
+  it("returns all 11 log methods", () => {
+    const logger = createLogger({});
     const ctx = logger.createContext("Auth");
-
-    expect(typeof ctx.success).toBe("function");
-    expect(typeof ctx.fail).toBe("function");
-    expect(typeof ctx.warn).toBe("function");
-    expect(typeof ctx.error).toBe("function");
-    expect(typeof ctx.info).toBe("function");
-    expect(typeof ctx.log).toBe("function");
+    const levels = ["success", "fail", "warn", "error", "info", "log", "alert", "crit", "warning", "debug", "silly"];
+    levels.forEach((level) => expect(typeof ctx[level]).toBe("function"));
   });
 
-  it("should prefix output with [context]", () => {
-    const logger = main({});
+  it("prefixes output with the context label", () => {
+    const logger = createLogger({});
     const ctx = logger.createContext("Auth");
     const spy = jest.spyOn(console, "info").mockImplementation(() => {});
 
     ctx.info("test message");
 
     expect(spy).toHaveBeenCalledWith(expect.stringContaining("Auth"), "test message", expect.any(String));
-
     spy.mockRestore();
   });
 
-  it("should not include context prefix when using logger directly", () => {
-    const logger = main({});
+  it("does not include context prefix when using root logger directly", () => {
+    const logger = createLogger({});
     const spy = jest.spyOn(console, "info").mockImplementation(() => {});
 
     logger.info("test message");
 
     expect(spy).toHaveBeenCalledWith(expect.not.stringContaining("Auth"), "test message", expect.any(String));
+    spy.mockRestore();
+  });
 
+  it("returns an object that also has a createContext method (supports nesting)", () => {
+    const logger = createLogger({});
+    const ctx = logger.createContext("HTTP");
+    expect(typeof ctx.createContext).toBe("function");
+  });
+
+  it("nested createContext concatenates labels with ' > '", () => {
+    const logger = createLogger({});
+    const nested = logger.createContext("HTTP").createContext("GET /users");
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    nested.info("msg");
+
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining("HTTP > GET /users"), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+
+  it("triple nesting joins all three labels", () => {
+    const logger = createLogger({});
+    const deep = logger.createContext("App").createContext("HTTP").createContext("Auth");
+    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    deep.info("msg");
+
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining("App > HTTP > Auth"), "msg", expect.any(String));
+    spy.mockRestore();
+  });
+});
+
+describe("warn and warning", () => {
+  it("warn routes to console.warn", () => {
+    const logger = createLogger({});
+    const spy = jest.spyOn(console, "warn").mockImplementation(() => {});
+
+    logger.warn("msg");
+
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
+  });
+
+  it("warning routes to console.warn", () => {
+    const logger = createLogger({});
+    const spy = jest.spyOn(console, "warn").mockImplementation(() => {});
+
+    logger.warning("msg");
+
+    expect(spy).toHaveBeenCalled();
     spy.mockRestore();
   });
 });
