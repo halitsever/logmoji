@@ -101,3 +101,17 @@ logger.error("shown");     // shown
 
 Level order (least → most severe):
 `silly → debug → log → info → success → warn → warning → fail → alert → error → crit`
+
+# Allowlist filtering
+
+Use `levels` to show only specific levels regardless of severity order:
+
+```javascript
+const logger = require("logmoji")({ levels: ["debug", "error"] });
+
+logger.debug("shown");   // shown
+logger.info("hidden");   // hidden
+logger.error("shown");   // shown
+```
+
+If both `levels` and `minLevel` are set, `levels` takes precedence.

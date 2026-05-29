@@ -23,6 +23,7 @@ const logger = require("logmoji")({
 | `logSymbols` | `LogSymbols` | see below | Override emoji for any log level. |
 | `logColors` | `LogColors` | see below | Override ANSI color code for any log level. |
 | `minLevel` | `LogLevel` | _(none)_ | Suppress all log levels below this one. |
+| `levels` | `LogLevel[]` | _(none)_ | Explicit allowlist — only these levels are output. Takes precedence over `minLevel`. |
 
 ## dateFormat options
 

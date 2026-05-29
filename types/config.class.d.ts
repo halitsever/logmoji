@@ -11,14 +11,16 @@ declare class ConfigClass {
      * @param {Object} [params.logSymbols] Custom emoji symbols by level.
      * @param {Object} [params.logColors] Custom ANSI color codes by level.
      * @param {string} [params.minLevel] Minimum log level to output — levels below this are suppressed.
+     * @param {string[]} [params.levels] Explicit allowlist of log levels to output. Takes precedence over minLevel.
      */
-    constructor({ timestamp, dateFormat, disablePrefixText, logSymbols, logColors, minLevel }: {
+    constructor({ timestamp, dateFormat, disablePrefixText, logSymbols, logColors, minLevel, levels }: {
         timestamp?: boolean;
         dateFormat?: "iso" | "locale" | "unix";
         disablePrefixText?: boolean;
         logSymbols?: any;
         logColors?: any;
         minLevel?: string;
+        levels?: string[];
     });
     config: {
         timestamp: boolean;
@@ -26,6 +28,7 @@ declare class ConfigClass {
         isLoggingDisabled: boolean;
         disablePrefixText: boolean;
         minLevel: string;
+        allowedLevels: string[];
         logSymbols: {
             success: string;
             fail: string;

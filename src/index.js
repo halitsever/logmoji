@@ -47,6 +47,7 @@ const formatDate = require("./utils/format-date");
  * @property {LogSymbols} [logSymbols] Custom emoji symbols for each log level.
  * @property {LogColors} [logColors] Custom ANSI escape code colors for each log level.
  * @property {LogLevel} [minLevel] Minimum log level to output. Levels below this are suppressed.
+ * @property {LogLevel[]} [levels] Explicit allowlist of levels to output. Takes precedence over minLevel.
  */
 
 /**
@@ -95,7 +96,9 @@ const createLogger = (params) => {
   const log = (level, context, ...args) => {
     if (config.isLoggingDisabled) return;
 
-    if (config.minLevel) {
+    if (config.allowedLevels) {
+      if (!config.allowedLevels.includes(level)) return;
+    } else if (config.minLevel) {
       const levelIdx = LEVEL_ORDER.indexOf(level);
       const minIdx = LEVEL_ORDER.indexOf(config.minLevel);
       if (levelIdx !== -1 && minIdx !== -1 && levelIdx < minIdx) return;

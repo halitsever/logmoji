@@ -172,6 +172,63 @@ describe("minLevel filtering", () => {
   });
 });
 
+describe("levels allowlist", () => {
+  it("only outputs listed levels", () => {
+    const logger = createLogger({ levels: ["warn", "info"] });
+    const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+    const infoSpy = jest.spyOn(console, "info").mockImplementation(() => {});
+    const logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+
+    logger.warn("shown");
+    logger.info("shown");
+    logger.debug("hidden");
+    logger.error("hidden");
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(infoSpy).toHaveBeenCalledTimes(1);
+    expect(logSpy).not.toHaveBeenCalled();
+
+    warnSpy.mockRestore();
+    infoSpy.mockRestore();
+    logSpy.mockRestore();
+  });
+
+  it("ignores invalid level names in the allowlist", () => {
+    const logger = createLogger({ levels: ["info", "notavalidlevel"] });
+    const infoSpy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+    logger.info("shown");
+
+    expect(infoSpy).toHaveBeenCalledTimes(1);
+    infoSpy.mockRestore();
+  });
+
+  it("levels takes precedence over minLevel when both are set", () => {
+    const logger = createLogger({ levels: ["debug"], minLevel: "error" });
+    const logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+    const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+    logger.debug("shown by allowlist");
+    logger.error("hidden by allowlist");
+
+    expect(logSpy).toHaveBeenCalledTimes(1);
+    expect(errorSpy).not.toHaveBeenCalled();
+
+    logSpy.mockRestore();
+    errorSpy.mockRestore();
+  });
+
+  it("logs everything when levels is an empty array", () => {
+    const logger = createLogger({ levels: [] });
+    const spy = jest.spyOn(console, "log").mockImplementation(() => {});
+
+    logger.silly("msg");
+
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
+  });
+});
+
 describe("custom logSymbols", () => {
   it("overrides the default emoji when a valid emoji is provided", () => {
     const logger = createLogger({ logSymbols: { info: "🔥" } });

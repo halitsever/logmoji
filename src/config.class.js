@@ -1,3 +1,5 @@
+const VALID_LEVELS = ["silly", "debug", "log", "info", "success", "warn", "warning", "fail", "alert", "error", "crit"];
+
 /**
  * Builds and validates runtime logger configuration.
  */
@@ -10,8 +12,9 @@ class ConfigClass {
    * @param {Object} [params.logSymbols] Custom emoji symbols by level.
    * @param {Object} [params.logColors] Custom ANSI color codes by level.
    * @param {string} [params.minLevel] Minimum log level to output — levels below this are suppressed.
+   * @param {string[]} [params.levels] Explicit allowlist of log levels to output. Takes precedence over minLevel.
    */
-  constructor({ timestamp, dateFormat, disablePrefixText, logSymbols, logColors, minLevel }) {
+  constructor({ timestamp, dateFormat, disablePrefixText, logSymbols, logColors, minLevel, levels }) {
     const defaultColors = {
       success: "\x1b[32m",
       fail: "\x1b[31m",
@@ -33,6 +36,7 @@ class ConfigClass {
       isLoggingDisabled: process.env.LOGMOJI_DISABLE === "true",
       disablePrefixText: disablePrefixText || false,
       minLevel: minLevel || null,
+      allowedLevels: Array.isArray(levels) && levels.length > 0 ? levels.filter((l) => VALID_LEVELS.includes(l)) : null,
       logSymbols: {
         success: this.validateEmoji(logSymbols?.success) || "✅",
         fail: this.validateEmoji(logSymbols?.fail) || "📛",

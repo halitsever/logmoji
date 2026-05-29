@@ -62,6 +62,10 @@ type LoggerConfig = {
      * Minimum log level to output. Levels below this are suppressed.
      */
     minLevel?: LogLevel;
+    /**
+     * Explicit allowlist of levels to output. Takes precedence over minLevel.
+     */
+    levels?: LogLevel[];
 };
 type LoggerMethods = {
     success: (...args: any[]) => void;
