@@ -1,5 +1,7 @@
 allowBuilds:
   esbuild: true
+  # Prebuilt binaries ship as optional deps, its install script only compiles on request.
+  "@parcel/watcher": false
 overrides:
   browserslist: ^4.28.7
   vite: ^6.4.4
