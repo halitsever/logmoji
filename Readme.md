@@ -1,14 +1,14 @@
 <p align="center" class="logo-section">
-<img src="https://i.ibb.co/gvD8wP1/Vulcan-Salute-Medium-Skin-Tone.png" height="80" width="80"/>
+<img src="https://i.ibb.co/gvD8wP1/Vulcan-Salute-Medium-Skin-Tone.png" height="80" width="80" alt="Logmoji logo"/>
 </br>
 <img src="https://halitsever-api.vercel.app/api/repo-title?title=Logmoji">
 
 <p align="center">
-🪵 Very small logging package with emojis for node.js <br>
+🪵 Small emoji logger for Node.js with log levels, ANSI colors, timestamps and context loggers <br>
 <br/>
 <br/>
-<img src="https://img.shields.io/github/sponsors/halitsever"/> 
-<img src="https://img.shields.io/github/license/halitsever/logmoji"/> 
+<img src="https://img.shields.io/github/sponsors/halitsever" alt="GitHub sponsors"/> 
+<img src="https://img.shields.io/github/license/halitsever/logmoji" alt="License"/> 
 </p>
 <p align="center">
 <a align="center" href="https://halitsever.github.io/logmoji/">Documentation</a>
@@ -42,6 +42,11 @@ logger.success("You did it!");
 <a align="center" href="https://github.com/halitsever/logmoji/issues">
 <img src="https://halitsever-api.vercel.app/api/issue"/>
 </a>
+
+<p align="center">
+Found a bug or have an idea? Open an <a href="https://github.com/halitsever/logmoji/issues">issue</a>.<br/>
+Read the <a href=".github/CONTRIBUTING.md">contributing guide</a> before sending a pull request.
+</p>
 
 <a align="center">
 <img src="https://halitsever-api.vercel.app/api/sponsor"/>

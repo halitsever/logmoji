@@ -1,6 +1,7 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+title: Emoji logger for Node.js
 
 hero:
   name: "Logmoji"

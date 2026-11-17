@@ -1,3 +1,8 @@
+---
+title: Usage
+description: "Install logmoji and log with emojis in Node.js: every log function, context loggers and level filtering."
+---
+
 # Installation
 
 ```bash
