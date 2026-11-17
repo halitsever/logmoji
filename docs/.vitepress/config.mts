@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { version } from '../../package.json'
 
 const siteUrl = 'https://halitsever.github.io/logmoji/'
 const title = 'Logmoji'
@@ -37,6 +38,7 @@ export default defineConfig({
   sitemap: { hostname: siteUrl },
   transformPageData(pageData) {
     if (pageData.isNotFound) return
+    if (pageData.relativePath === 'index.md') pageData.frontmatter.hero.tagline = version
     const path = pageData.relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '.html')
     const url = `${siteUrl}${path}`
     pageData.frontmatter.head ??= []
