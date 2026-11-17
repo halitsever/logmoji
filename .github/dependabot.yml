@@ -9,10 +9,10 @@ updates:
       default-days: 7
     groups:
       npm-minor-and-patch:
-        patterns: ['*']
+        patterns: ["*"]
         update-types: [minor, patch]
       npm-major:
-        patterns: ['*']
+        patterns: ["*"]
         update-types: [major]
 
   - package-ecosystem: github-actions
@@ -24,4 +24,4 @@ updates:
       default-days: 7
     groups:
       github-actions:
-        patterns: ['*']
+        patterns: ["*"]
