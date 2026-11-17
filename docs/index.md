@@ -6,7 +6,6 @@ title: Emoji logger for Node.js
 hero:
   name: "Logmoji"
   text: "Logger with emojis"
-  tagline: 1.0.6
   actions:
     - theme: brand
       text: Get Started
