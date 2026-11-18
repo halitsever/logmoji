@@ -1,11 +1,11 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
-title: Emoji logger for Node.js
+title: Node.js logger with emojis and colors
 
 hero:
   name: "Logmoji"
-  text: "Logger with emojis"
+  text: "Node.js logger with emojis"
   actions:
     - theme: brand
       text: Get Started
@@ -20,7 +20,7 @@ hero:
 features:
   - title: Small
     icon: ✅
-    details: Very small logging package with emojis
+    details: A very small Node.js logging package with emojis
   - title: Fun
     icon: 💨
     details: Makes reading debug logs more fun

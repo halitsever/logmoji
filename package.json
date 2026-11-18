@@ -1,7 +1,7 @@
 {
   "name": "logmoji",
   "version": "1.3.0",
-  "description": "Small emoji logger for Node.js with log levels, ANSI colors, timestamps and context loggers.",
+  "description": "Node.js logger that prints each line with an emoji, log levels, console log colors, timestamps and context loggers.",
   "main": "src/index.js",
   "types": "types/index.d.ts",
   "exports": {
@@ -34,6 +34,9 @@
     "emoji-logger",
     "nodejs",
     "nodejs-logger",
+    "node-logger",
+    "nodejs-logging",
+    "node-logging",
     "javascript",
     "console",
     "console-log",
@@ -41,7 +44,10 @@
     "cli",
     "stdout",
     "log-levels",
-    "colors"
+    "colors",
+    "ansi-colors",
+    "console-colors",
+    "console-log-colors"
   ],
   "author": "Halit Sever <halitsever@protonmail.com>",
   "license": "MIT",

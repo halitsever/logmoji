@@ -1,5 +1,5 @@
 ---
-description: "Configure logmoji: timestamps, date formats, minimum log level, level allowlist, custom emojis and ANSI colors."
+description: "Configure logmoji: timestamps, date formats, minimum log level, level allowlist, custom emojis and console log colors."
 ---
 
 # Configuration
@@ -57,7 +57,9 @@ Setting `minLevel: "warn"` will suppress `silly`, `debug`, `log`, `info`, and `s
 }
 ```
 
-## Default colors (ANSI codes)
+## Console log colors
+
+Each level has its own color. The logger writes the level's ANSI escape code before the line and `\x1b[0m` after it, so the color resets before the next line. The codes are written even when output goes to a file or a pipe. These are the defaults:
 
 ```javascript
 {

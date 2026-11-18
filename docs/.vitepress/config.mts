@@ -3,7 +3,7 @@ import { version } from '../../package.json'
 
 const siteUrl = 'https://halitsever.github.io/logmoji/'
 const title = 'Logmoji'
-const description = 'Small emoji logger for Node.js with log levels, ANSI colors, timestamps and context loggers.'
+const description = 'Node.js logger that prints each line with an emoji, log levels, console log colors, timestamps and context loggers.'
 
 const jsonLd = {
   '@context': 'https://schema.org',
