@@ -64,7 +64,7 @@ export default defineConfig({
       }
     ],
 
-    logo: '/favicon.png',
+    logo: { src: '/favicon.png', alt: 'Logmoji logo' },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/halitsever/logmoji' }
