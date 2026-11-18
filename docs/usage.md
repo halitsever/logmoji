@@ -1,15 +1,18 @@
 ---
 title: Node.js logging with logmoji
 description: "Install logmoji and start Node.js logging with emojis: every log function, context loggers and level filtering."
+outline: [2, 3]
 ---
 
-# Installation
+# Node.js logging with logmoji
+
+## Installation
 
 ```bash
 npm install --save logmoji
 ```
 
-# Usage
+## Usage
 
 ```javascript
 const logger = require("logmoji")({
@@ -25,7 +28,7 @@ logger.success("You did it!");
 // Output:  🗣️ You did it
 ```
 
-# Available Log Functions
+## Available Log Functions
 
 ```javascript
 logger.success("You did it!");
@@ -62,7 +65,7 @@ logger.silly("wheee");
 // Output: 🤪 Silly: wheee
 ```
 
-# Context Logger
+## Context Logger
 
 Use `createContext` to create a child logger that prefixes every log with a context label. Useful for identifying which module or service a log comes from.
 
@@ -76,7 +79,7 @@ authLogger.error("Token expired");
 // Output: 🚨 Error: Auth Token expired
 ```
 
-## Nested contexts
+### Nested contexts
 
 `createContext` can be chained to build hierarchical labels. Each level is joined with ` > `.
 
@@ -91,7 +94,7 @@ reqLogger.error("Unauthorized");
 // Output: 🚨 Error: HTTP > GET /users Unauthorized
 ```
 
-# Filtering by log level
+## Filtering by log level
 
 Use `minLevel` to suppress output below a certain severity:
 
@@ -107,7 +110,7 @@ logger.error("shown");     // shown
 Level order (least → most severe):
 `silly → debug → log → info → success → warn → warning → fail → alert → error → crit`
 
-# Allowlist filtering
+## Allowlist filtering
 
 Use `levels` to show only specific levels regardless of severity order:
 
