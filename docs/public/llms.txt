@@ -1,14 +1,14 @@
 # logmoji
 
-> Small emoji logger for Node.js. Each log line gets an emoji and a level label, with log levels, minimum-level and allowlist filtering, ANSI colors, timestamps and context loggers.
+> Small Node.js logger with emojis. Each log line gets an emoji and a level label, with log levels, minimum-level and allowlist filtering, console log colors (ANSI codes), timestamps and context loggers.
 
 Install with `npm install logmoji`. The package exports a factory, not a logger: call `require("logmoji")({ timestamp: false })` in CommonJS, or `import createLogger from "logmoji"` and then `createLogger(options)` in ESM. Set `LOGMOJI_DISABLE=true` in the environment to silence all output.
 
 ## Docs
 
 - [Home](https://halitsever.github.io/logmoji/): overview
-- [Usage](https://halitsever.github.io/logmoji/usage.html): install, every log function, context loggers and level filtering
-- [Configuration](https://halitsever.github.io/logmoji/config.html): timestamps, date formats, minLevel, levels, custom emojis and colors
+- [Usage](https://halitsever.github.io/logmoji/usage.html): Node.js logging setup, every log function, context loggers and level filtering
+- [Configuration](https://halitsever.github.io/logmoji/config.html): timestamps, date formats, minLevel, levels, custom emojis and console log colors
 
 ## Optional
 

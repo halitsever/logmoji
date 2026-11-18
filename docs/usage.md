@@ -1,6 +1,6 @@
 ---
-title: Usage
-description: "Install logmoji and log with emojis in Node.js: every log function, context loggers and level filtering."
+title: Node.js logging with logmoji
+description: "Install logmoji and start Node.js logging with emojis: every log function, context loggers and level filtering."
 ---
 
 # Installation
