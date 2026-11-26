@@ -4,7 +4,7 @@
 <img src="https://halitsever-api.vercel.app/api/repo-title?title=Logmoji">
 
 <p align="center">
-🪵 Node.js logger that prints each line with an emoji, log levels, console log colors, timestamps and context loggers <br>
+Node.js logger that prints each line with an emoji, log levels, console log colors, timestamps and context loggers <br>
 <br/>
 <br/>
 <img src="https://img.shields.io/github/sponsors/halitsever" alt="GitHub sponsors"/> 
@@ -19,8 +19,8 @@
 <img src="https://halitsever-api.vercel.app/api/details"/>
 </a>
 
-- 🧑‍💻 [**Small**](#) - Only 3.63kB
-- 🧑‍💻 [**Makes reading debug logs more fun**](#) - Reading debug logs less painless with logmoji
+- [**Small**](#) - Only 3.63kB
+- [**Makes reading debug logs more fun**](#) - Reading debug logs less painless with logmoji
 
 <a align="center" >
 <img src="https://halitsever-api.vercel.app/api/installation"/>
