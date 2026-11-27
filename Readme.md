@@ -11,7 +11,7 @@ Node.js logger that prints each line with an emoji, log levels, console log colo
 <img src="https://img.shields.io/github/license/halitsever/logmoji" alt="License"/> 
 </p>
 <p align="center">
-<a align="center" href="https://halitsever.github.io/logmoji/">Documentation</a>
+<a align="center" href="https://projects.halit.org/logmoji/">Documentation</a>
   </p>
 </p>
 
@@ -39,7 +39,7 @@ logger.success("You did it!");
 // Success: ✅ You did it
 ```
 
-Each level prints in its own console log color, green for success and red for errors. Change them with the `logColors` option described in the [configuration docs](https://halitsever.github.io/logmoji/config.html).
+Each level prints in its own console log color, green for success and red for errors. Change them with the `logColors` option described in the [configuration docs](https://projects.halit.org/logmoji/config.html).
 
 <a align="center" href="https://github.com/halitsever/logmoji/issues">
 <img src="https://halitsever-api.vercel.app/api/issue"/>

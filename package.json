@@ -18,7 +18,7 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
-  "homepage": "https://halitsever.github.io/logmoji/",
+  "homepage": "https://projects.halit.org/logmoji/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/halitsever/logmoji.git"

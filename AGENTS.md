@@ -23,7 +23,7 @@ CI (`.github/workflows/ci.yml`) uses pnpm 11 on Node 22 and runs:
 
 ## Docs site
 
-- VitePress source lives in `docs/`, with the config in `docs/.vitepress/config.mts` and base `/logmoji/`. It is served at https://halitsever.github.io/logmoji/ with `.html` page URLs.
+- VitePress source lives in `docs/`, with the config in `docs/.vitepress/config.mts` and base `/logmoji/`. It is served at https://projects.halit.org/logmoji/ with `.html` page URLs.
 - `.github/workflows/docs.yaml` deploys on every push to `main`.
 - A new page needs a `description` line in its frontmatter, a sidebar entry in the config and a line in `docs/public/llms.txt`. The sitemap, canonical and `og:url` tags are generated.
 

@@ -6,9 +6,9 @@ Install with `npm install logmoji`. The package exports a factory, not a logger:
 
 ## Docs
 
-- [Home](https://halitsever.github.io/logmoji/): overview
-- [Usage](https://halitsever.github.io/logmoji/usage.html): Node.js logging setup, every log function, context loggers and level filtering
-- [Configuration](https://halitsever.github.io/logmoji/config.html): timestamps, date formats, minLevel, levels, custom emojis and console log colors
+- [Home](https://projects.halit.org/logmoji/): overview
+- [Usage](https://projects.halit.org/logmoji/usage.html): Node.js logging setup, every log function, context loggers and level filtering
+- [Configuration](https://projects.halit.org/logmoji/config.html): timestamps, date formats, minLevel, levels, custom emojis and console log colors
 
 ## Optional
 

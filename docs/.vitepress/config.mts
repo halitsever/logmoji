@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { version } from '../../package.json'
 
-const siteUrl = 'https://halitsever.github.io/logmoji/'
+const siteUrl = 'https://projects.halit.org/logmoji/'
 const title = 'Logmoji'
 const description = 'Node.js logger that prints each line with an emoji, log levels, console log colors, timestamps and context loggers.'
 
@@ -26,7 +26,7 @@ export default defineConfig({
   title,
   description,
   head: [
-    /** Cloudflare Web Analytics, one token for every page on halitsever.github.io. */
+    /** Cloudflare Web Analytics, one token for every page on projects.halit.org. */
     ['script', { defer: '', src: 'https://static.cloudflareinsights.com/beacon.min.js', 'data-cf-beacon': '{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}' }],
     ['link', { rel: 'icon', href: '/logmoji/favicon.ico' }],
     ['meta', { property: 'og:type', content: 'website' }],
