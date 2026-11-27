@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://halitsever.github.io/logmoji/sitemap.xml
+Sitemap: https://projects.halit.org/logmoji/sitemap.xml
