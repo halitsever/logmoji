@@ -108,4 +108,5 @@ No. Node.js accepts the %c specifier but ignores the CSS. It only styles output 
 - [What each log level means and when to use it](/blog/log-levels-explained)
 - [Logging in Node.js without a framework](/blog/nodejs-logging-basics)
 - [Readable terminal logs with an emoji per level](/blog/emoji-console-logs)
+- [What console.error does differently from console.log](/blog/console-error)
 - [All posts](/blog/)

@@ -1,8 +1,9 @@
 ---
+title: Configuration
 description: "Configure logmoji: timestamps, date formats, minimum log level, level allowlist, custom emojis and console log colors."
 ---
 
-# Configuration
+# Options for createLogger(): timestamps, levels, emojis and colors
 
 Pass an options object to `createLogger()` to customize behavior.
 

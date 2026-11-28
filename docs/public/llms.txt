@@ -22,6 +22,12 @@ Install with `npm install logmoji`. The package exports a factory, not a logger:
 - [Color console.log in Node.js](https://projects.halit.org/logmoji/blog/console-log-colors-node.html): ANSI escape codes, util.styleText, isTTY and NO_COLOR
 - [Node.js logging basics](https://projects.halit.org/logmoji/blog/nodejs-logging-basics.html): console methods, timestamps, levels and context for small apps
 - [Emoji logs](https://projects.halit.org/logmoji/blog/emoji-console-logs.html): one emoji, label and color per level in logmoji
+- [What Date.prototype.toISOString returns, and when it throws](https://projects.halit.org/logmoji/blog/toisostring.html): How toISOString formats a JavaScript date: always UTC with a Z, extended years, the RangeError for invalid dates, toJSON, and local time strings for log files.
+- [Structured logs: why logs became JSON, with Node.js output](https://projects.halit.org/logmoji/blog/structured-logging.html): What structured logging means, what a JSON log line looks like in pino and winston, which fields to include, and when plain text console logs are enough.
+- [What console.error does differently from console.log](https://projects.halit.org/logmoji/blog/console-error.html): What console.error does in Node.js and the browser: stderr vs stdout, format strings, Error objects, redirecting with 2> and 2>&1, and logmoji's error levels.
+- [Turning debug output on and off with the debug package](https://projects.halit.org/logmoji/blog/debug-npm.html): How the debug npm package works: namespaces, the DEBUG variable, wildcards and exclusions, stderr output, TTY timestamps, %o formatting and DEBUG_COLORS.
+- [Reading and managing Node.js logs under pm2](https://projects.halit.org/logmoji/blog/pm2-logs.html): How pm2 logs works: where pm2 keeps out and error files, --lines and --nostream, adding timestamps with --time or log_date_format, flush and log rotation.
+- [Printing nested objects in full with console.dir](https://projects.halit.org/logmoji/blog/console-dir.html): How console.dir prints objects in Node.js and how it differs from console.log: depth, colors and showHidden options, depth null, circular refs and util.inspect.
 
 ## Optional
 
