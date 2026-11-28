@@ -81,3 +81,8 @@ Each call writes the level's ANSI color, an optional timestamp, the level's emoj
 - **Silence everything** by setting `LOGMOJI_DISABLE=true` in the environment.
 
 Start with the [usage guide](/usage) for every log function, then see the [configuration reference](/config) for all options and their defaults.
+
+## Guides
+
+- [Console log colors picker](/console-log-colors/): choose a color for each level, preview it and copy the `logColors` config.
+- [Blog](/blog/): guides to [log levels](/blog/log-levels-explained), [pino](/blog/pino-logger) and [winston](/blog/winston-logger), and [colored console.log output](/blog/console-log-colors-node).
