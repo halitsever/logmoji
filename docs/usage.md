@@ -122,4 +122,4 @@ logger.info("hidden");   // hidden
 logger.error("shown");   // shown
 ```
 
-If both `levels` and `minLevel` are set, `levels` takes precedence.
+If both `levels` and `minLevel` are set, `levels` takes precedence. The [log level hierarchy](/blog/log-level-hierarchy) post compares this order with pino and winston.

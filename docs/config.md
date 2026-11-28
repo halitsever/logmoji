@@ -77,7 +77,7 @@ Each level has its own color. The logger writes the level's ANSI escape code bef
 }
 ```
 
-Custom colors must be valid ANSI escape codes (e.g. `"\x1b[34m"`). Invalid values silently fall back to the default.
+Custom colors must be valid ANSI escape codes (e.g. `"\x1b[34m"`). Invalid values silently fall back to the default. The [console log colors picker](/console-log-colors/) builds this object for you with a live preview.
 
 ## warn vs warning
 

@@ -9,6 +9,19 @@ Install with `npm install logmoji`. The package exports a factory, not a logger:
 - [Home](https://projects.halit.org/logmoji/): overview
 - [Usage](https://projects.halit.org/logmoji/usage.html): Node.js logging setup, every log function, context loggers and level filtering
 - [Configuration](https://projects.halit.org/logmoji/config.html): timestamps, date formats, minLevel, levels, custom emojis and console log colors
+- [Console log colors picker](https://projects.halit.org/logmoji/console-log-colors/): pick an ANSI color per log level, preview it and copy the logColors config
+
+## Blog
+
+- [Blog index](https://projects.halit.org/logmoji/blog/): Node.js logging guides
+- [Log levels explained](https://projects.halit.org/logmoji/blog/log-levels-explained.html): what debug, info, warn, error and fatal mean
+- [Log level hierarchy](https://projects.halit.org/logmoji/blog/log-level-hierarchy.html): severity order, syslog vs pino numbering, thresholds
+- [Pino logger](https://projects.halit.org/logmoji/blog/pino-logger.html): pino setup, levels, child loggers, pino-pretty, redaction
+- [Winston logger](https://projects.halit.org/logmoji/blog/winston-logger.html): winston setup, levels, formats and transports
+- [Winston vs pino](https://projects.halit.org/logmoji/blog/winston-vs-pino.html): documented features side by side, with a console logger
+- [Color console.log in Node.js](https://projects.halit.org/logmoji/blog/console-log-colors-node.html): ANSI escape codes, util.styleText, isTTY and NO_COLOR
+- [Node.js logging basics](https://projects.halit.org/logmoji/blog/nodejs-logging-basics.html): console methods, timestamps, levels and context for small apps
+- [Emoji logs](https://projects.halit.org/logmoji/blog/emoji-console-logs.html): one emoji, label and color per level in logmoji
 
 ## Optional
 
