@@ -1,7 +1,7 @@
 ---
 title: "Node.js Logging Guides: Levels, Pino, Winston, Colors"
 titleTemplate: false
-description: "Guides to logging in Node.js: what log levels mean, how thresholds work, pino and winston set up from their docs, and colored console output by hand."
+description: "Guides to logging in Node.js: log levels, pino and winston, structured logs, stderr, console.dir, the debug package, pm2 logs, timestamps and colored output."
 ---
 
 # Node.js logging guides
@@ -39,3 +39,27 @@ Node.js logging basics for small apps: stdout and stderr, console methods, times
 ## [Readable terminal logs with an emoji per level](/blog/emoji-console-logs)
 
 How emoji logs work in logmoji: an emoji, label and color per level, the defaults, custom symbols, hiding the label and when plain logs are the better choice.
+
+## [What Date.prototype.toISOString returns, and when it throws](/blog/toisostring)
+
+How toISOString formats a JavaScript date: always UTC with a Z, extended years, the RangeError for invalid dates, toJSON, and local time strings for log files.
+
+## [Structured logs: why logs became JSON, with Node.js output](/blog/structured-logging)
+
+What structured logging means, what a JSON log line looks like in pino and winston, which fields to include, and when plain text console logs are enough.
+
+## [What console.error does differently from console.log](/blog/console-error)
+
+What console.error does in Node.js and the browser: stderr vs stdout, format strings, Error objects, redirecting with 2> and 2>&1, and logmoji's error levels.
+
+## [Turning debug output on and off with the debug package](/blog/debug-npm)
+
+How the debug npm package works: namespaces, the DEBUG variable, wildcards and exclusions, stderr output, TTY timestamps, %o formatting and DEBUG_COLORS.
+
+## [Reading and managing Node.js logs under pm2](/blog/pm2-logs)
+
+How pm2 logs works: where pm2 keeps out and error files, --lines and --nostream, adding timestamps with --time or log_date_format, flush and log rotation.
+
+## [Printing nested objects in full with console.dir](/blog/console-dir)
+
+How console.dir prints objects in Node.js and how it differs from console.log: depth, colors and showHidden options, depth null, circular refs and util.inspect.

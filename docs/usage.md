@@ -4,7 +4,7 @@ description: "Install logmoji and start Node.js logging with emojis: every log f
 outline: [2, 3]
 ---
 
-# Node.js logging with logmoji
+# Getting started: install logmoji and log your first lines
 
 ## Installation
 

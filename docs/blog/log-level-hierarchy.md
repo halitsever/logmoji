@@ -109,4 +109,5 @@ In syslog and winston, yes: 0 is the most severe. In pino it is the other way ro
 - [What each log level means and when to use it](/blog/log-levels-explained)
 - [Setting up the pino logger in a Node.js app](/blog/pino-logger)
 - [How to use the winston logger in Node.js](/blog/winston-logger)
+- [Turning debug output on and off with the debug package](/blog/debug-npm)
 - [All posts](/blog/)

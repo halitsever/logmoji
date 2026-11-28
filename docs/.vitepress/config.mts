@@ -119,7 +119,13 @@ export default defineConfig({
             { text: 'Winston vs pino', link: '/blog/winston-vs-pino' },
             { text: 'Color console.log output', link: '/blog/console-log-colors-node' },
             { text: 'Node.js logging basics', link: '/blog/nodejs-logging-basics' },
-            { text: 'Emoji logs', link: '/blog/emoji-console-logs' }
+            { text: 'Emoji logs', link: '/blog/emoji-console-logs' },
+            { text: 'toISOString timestamps', link: '/blog/toisostring' },
+            { text: 'Structured logging', link: '/blog/structured-logging' },
+            { text: 'console.error and stderr', link: '/blog/console-error' },
+            { text: 'The debug package', link: '/blog/debug-npm' },
+            { text: 'pm2 logs', link: '/blog/pm2-logs' },
+            { text: 'console.dir', link: '/blog/console-dir' }
           ]
         }
       ],

@@ -84,4 +84,5 @@ Yes. Pino uses the separate pino-pretty package, and winston uses format.coloriz
 - [Setting up the pino logger in a Node.js app](/blog/pino-logger)
 - [How to use the winston logger in Node.js](/blog/winston-logger)
 - [Logging in Node.js without a framework](/blog/nodejs-logging-basics)
+- [Structured logs: why logs became JSON, with Node.js output](/blog/structured-logging)
 - [All posts](/blog/)

@@ -108,4 +108,5 @@ console.log, console.info and console.debug write to stdout. console.warn and co
 - [What each log level means and when to use it](/blog/log-levels-explained)
 - [How the log level hierarchy filters messages](/blog/log-level-hierarchy)
 - [Pino vs winston, and when a console logger is enough](/blog/winston-vs-pino)
+- [What console.error does differently from console.log](/blog/console-error)
 - [All posts](/blog/)
